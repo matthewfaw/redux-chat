@@ -1,18 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
+import VisibleMessageList from '../containers/VisibleMessageList';
+import TextInputField from '../containers/TextInputField';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <div className="App-header">
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
-}
+const App = () => (
+    <div>
+       <VisibleMessageList /> 
+       <TextInputField /> 
+    </div>
+);
 
 export default App;

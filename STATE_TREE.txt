@@ -1,0 +1,45 @@
+{
+    currentUserInfo: {
+        name: "1",
+        currentConversation: "conv1",
+        currentBranch: "branch1",
+        isSendingMessage: true,
+        isLoadingMessages: true,
+    },
+
+    conversations: {
+        byId: {
+            "conv1": {
+                id: "conv1",
+                participants: ["1", "2"],
+
+                branches: {
+                    byId: {
+                        "branch1": {
+                            id: "branch1",
+                            messages: [
+                                {
+                                    sender: "1",
+                                    time: "...",
+                                    body: "hey",
+                                },
+                                {
+                                    sender: "2",
+                                    time: "...",
+                                    body: "how's it going?",
+                                },
+                                {
+                                    sender: "1",
+                                    time: "...",
+                                    body: "fine.",
+                                },
+                            ],
+                        },
+                    },
+                    allIds: ["branch1"],
+                },
+            },
+        },
+        allIds: ["conv1"],
+    },
+}
