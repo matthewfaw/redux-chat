@@ -23,7 +23,7 @@ const updateConversationParticipants = (stateParticipants=[], action, currentUse
     }
 };
 
-const updateAllIds = (state, action) => {
+const updateAllIds = (state=[], action) => {
     switch(action.type) {
         case ActionTypes.CREATE_CONVERSATION:
             return [
@@ -50,21 +50,21 @@ const conversation = (state=
 };
 
 
-const updateById = (stateSubtreeToUpdate, action, currentUserInfo) => {
+const updateById = (state, action, currentUserInfo) => {
     switch(action.type) {
         case ActionTypes.CREATE_CONVERSATION:
             return {
-                ...stateSubtreeToUpdate,
+                ...state,
                 [action.conversationName]: conversation(undefined, action, currentUserInfo) 
             }
         case ActionTypes.SEND_MESSAGE:
             let conversationName = currentUserInfo.currentConversation;
             return {
-                ...stateSubtreeToUpdate,
-                [conversationName]: conversation(stateSubtreeToUpdate[conversationName], action, currentUserInfo) 
+                ...state,
+                [conversationName]: conversation(state[conversationName], action, currentUserInfo) 
             }
         default:
-            return stateSubtreeToUpdate;
+            return state;
     }
     //let newState = {};
     //for (var conversationName in stateSubtreeToUpdate) {
@@ -75,12 +75,17 @@ const updateById = (stateSubtreeToUpdate, action, currentUserInfo) => {
     //return newState;
 };
 
-const conversations = (state, action) => {
+const conversations = (state=
+            {
+                byId: undefined,
+                allIds: undefined
+            }
+    , action, rootState) => {
     return {
         ...state.conversations,
-        byId: updateById(state.conversations.byId, action, state.currentUserInfo),
+        byId: updateById(state.byId, action, rootState.currentUserInfo),
 
-        allIds: updateAllIds(state.conversations.allIds, action)
+        allIds: updateAllIds(state.allIds, action)
     }
 };
 

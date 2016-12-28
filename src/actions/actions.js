@@ -1,12 +1,15 @@
 import ActionTypes from './actionTypes';
+import ActionStatus from './actionStatus';
 
 export const loadConversation = (conversationId) => ({
     type: ActionTypes.LOAD_CONVERSATION,
+    status: ActionStatus.REQUESTING,
     id: conversationId,
 });
 
 export const sendMessage = (message, sender) => ({
     type: ActionTypes.SEND_MESSAGE,
+    status: ActionStatus.REQUESTING,
     sender: sender,
     time: Date.now(),
     message: message,

@@ -7,25 +7,15 @@ import conversations from './conversations';
 //});
 
 const root = (state=
-        {
-            currentUserInfo: {
-                name: "",
-                currentConversation: "",
-                currentBranch: "",
-                isSendingMessage: false,
-                isLoadingMessage: false,
-            },
-
-            conversations: {
-                byId: {},
-                allIds: [],
-            },
-        }
+            {
+                currentUserInfo: undefined,
+                conversations: undefined,
+            }
     , action) => {
     return {
         ...state,
-        currentUserInfo: currentUserInfo(state, action),
-        conversations: conversations(state, action)
+        currentUserInfo: currentUserInfo(state.currentUserInfo, action, state),
+        conversations: conversations(state.conversations, action, state)
     }
 }
 
