@@ -1,6 +1,6 @@
 import React from 'react';
 
-let TextInputField = ({ onSubmitText, currentUser }) => {
+let TextInputField = ({ onSubmitText, currentUser, buttonText }) => {
     let input;
 
     return (
@@ -19,7 +19,7 @@ let TextInputField = ({ onSubmitText, currentUser }) => {
                     input = node;
                 }} />
                 <button type="submit">
-                Add Todo
+                {buttonText}
                 </button>
             </form>
         </div>

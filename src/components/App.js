@@ -1,13 +1,15 @@
 import React from 'react';
 import VisibleMessageList from '../containers/VisibleMessageList';
 import VisibleConversationPreviewList from '../containers/VisibleConversationPreviewList';
-import VisibleTextInputField from '../containers/VisibleTextInputField';
+import VisibleMessageSender from '../containers/VisibleMessageSender';
+import VisibleConversationAdder from '../containers/VisibleConversationAdder';
 
 const App = () => (
     <div>
        <VisibleConversationPreviewList />
+       <VisibleConversationAdder buttonText="Add Conversation"/>
        <VisibleMessageList /> 
-       <VisibleTextInputField /> 
+       <VisibleMessageSender buttonText="Send Message"/> 
     </div>
 );
 

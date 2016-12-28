@@ -1,6 +1,12 @@
 import ActionTypes from '../actions/actionTypes'
 
-const message = (state, action) => {
+const message = (state=
+            {
+                sender: "",
+                time: undefined,
+                body: "",
+            }
+    , action) => {
     switch(action.type) {
         case ActionTypes.SEND_MESSAGE:
             return {
@@ -13,7 +19,7 @@ const message = (state, action) => {
     }
 };
 
-const messages = (state, action) => {
+const messages = (state=[], action) => {
     switch(action.type) {
         case ActionTypes.SEND_MESSAGE:
             return [

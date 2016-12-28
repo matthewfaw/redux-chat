@@ -2,14 +2,23 @@ import ActionTypes from '../actions/actionTypes'
 
 import updateMessages from './messages';
 
-const updateBranchId = (stateId, action) => {
+const updateBranchId = (stateId="", action) => {
     switch(action.type) {
+        case ActionTypes.CREATE_CONVERSATION:
+            return action.defaultBranchName;
+        case ActionTypes.CREATE_BRANCH:
+            return action.branchName;
         default:
             return stateId;
     }
 };
 
-const branch = (state, action) => {
+const branch = (state=
+            {
+                id: undefined,
+                messages: undefined,
+            }
+    , action) => {
     return {
         id: updateBranchId(state.id, action),
         messages: updateMessages(state.messages, action),
@@ -17,15 +26,33 @@ const branch = (state, action) => {
 };
 
 const updateById = (state, action) => {
-    let newState = {};
-    for (var byIdName in state) {
-        newState[byIdName] = branch(state[byIdName], action);
+    switch(action.type) {
+        case ActionTypes.CREATE_CONVERSATION:
+            return {
+                [action.defaultBranchName]: branch(undefined, action),
+            }
+        case ActionTypes.CREATE_BRANCH:
+            return {
+                ...state,
+                [action.branchName]: branch(undefined, action),
+            }
+        default:
+            return state;
     }
-    return newState;
+    //let newState = {};
+    //for (var byIdName in state) {
+        //newState[byIdName] = branch(state[byIdName], action);
+    //}
+    //return newState;
 };
 
 const updateAllIds = (state, action) => {
     switch(action.type) {
+        case ActionTypes.CREATE_CONVERSATION:
+            return [
+                ...state,
+                action.defaultBranchName,
+            ]
         case ActionTypes.CREATE_BRANCH:
             return [
                 ...state,
@@ -36,7 +63,12 @@ const updateAllIds = (state, action) => {
     }
 };
 
-const branches = (state, action) => {
+const branches = (state=
+                {
+                    byId: {},
+                    allIds: [],
+                }, 
+                action) => {
     return {
         byId: updateById(state.byId, action),
         allIds: updateAllIds(state.allIds, action),

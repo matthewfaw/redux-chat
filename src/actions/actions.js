@@ -35,6 +35,7 @@ export const deleteBranch = (branchName) => ({
 export const createConversation = (conversationName) => ({
     type: ActionTypes.CREATE_CONVERSATION,
     conversationName: conversationName,
+    defaultBranchName: "DEFAULT",
 });
 
 export const checkoutConversation = (conversationName) => ({
