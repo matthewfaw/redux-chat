@@ -1,5 +1,4 @@
-import { combineReducers } from 'redux';
-import currentUserInfo from './currentUserInfo ';
+import currentUserInfo from './currentUserInfo';
 import conversations from './conversations';
 
 //const rootReducer = combineReducers({
@@ -7,11 +6,26 @@ import conversations from './conversations';
     //conversations,
 //});
 
-const root = (state, action) => {
+const root = (state=
+        {
+            currentUserInfo: {
+                name: "",
+                currentConversation: "",
+                currentBranch: "",
+                isSendingMessage: false,
+                isLoadingMessage: false,
+            },
+
+            conversations: {
+                byId: {},
+                allIds: [],
+            },
+        }
+    , action) => {
     return {
         ...state,
-        currentUserInfo(state, action),
-        conversations(state, action)
+        currentUserInfo: currentUserInfo(state, action),
+        conversations: conversations(state, action)
     }
 }
 

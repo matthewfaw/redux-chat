@@ -12,38 +12,38 @@ export const sendMessage = (message, sender) => ({
     message: message,
 });
 
-export const addParticipant: = (participantId) => ({
-    type: ActionType.ADD_PARTICIPANT,
+export const addParticipant = (participantId) => ({
+    type: ActionTypes.ADD_PARTICIPANT,
     id: participantId,
 });
 
 export const createBranch = (branchName) => ({
-    type: ActionType.CREATE_BRANCH,
+    type: ActionTypes.CREATE_BRANCH,
     branchName: branchName,
 });
 
 export const checkoutBranch = (branchName) => ({
-    type: ActionType.CHECKOUT_BRANCH,
+    type: ActionTypes.CHECKOUT_BRANCH,
     branchName: branchName,
 });
 
 export const deleteBranch = (branchName) => ({
-    type: ActionType.DELETE_BRANCH,
+    type: ActionTypes.DELETE_BRANCH,
     branchName: branchName,
 });
 
 export const createConversation = (conversationName) => ({
-    type: ActionType.CREATE_CONVERSATION,
+    type: ActionTypes.CREATE_CONVERSATION,
     conversationName: conversationName,
 });
 
 export const checkoutConversation = (conversationName) => ({
-    type: ActionType.CHECKOUT_CONVERSATION,
+    type: ActionTypes.CHECKOUT_CONVERSATION,
     conversationName: conversationName,
 });
 
 export const deleteConversation = (conversationName) => ({
-    type: ActionType.DELETE_CONVERSATION,
+    type: ActionTypes.DELETE_CONVERSATION,
     conversationName: conversationName,
 });
 

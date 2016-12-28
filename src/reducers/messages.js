@@ -2,12 +2,14 @@ import ActionTypes from '../actions/actionTypes'
 
 const message = (state, action) => {
     switch(action.type) {
-        case ActionType.SEND_MESSAGE:
+        case ActionTypes.SEND_MESSAGE:
             return {
                 sender: action.sender,
                 time: action.time,
                 body: action.message,
             }
+        default:
+            return state;
     }
 };
 

@@ -1,16 +1,16 @@
 import React, { PropTypes } from 'react';
 import Message from './Message';
 
-const MessageList = ({ messages }) => {
+const MessageList = ({ messages }) => (
     <ul>
         {messages.map(message => 
             <Message
                 key={message.id}
-                message=message
+                messageInfo={message}
             />
         )}
     </ul>
-};
+);
 
 MessageList.propTypes = {
     messages: PropTypes.arrayOf(PropTypes.shape({
@@ -19,3 +19,5 @@ MessageList.propTypes = {
         body: PropTypes.string.isRequired,
     }).isRequired).isRequired,
 };
+
+export default MessageList;

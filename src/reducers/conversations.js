@@ -28,6 +28,15 @@ const updateAllIds = (state, action) => {
     }
 };
 
+const conversation = (state, action, baseStateTree) => {
+    return {
+        id: updateConversationId(state.id, action),
+        participants: updateConversationParticipants(state.participants, action, baseStateTree),
+        branches: updateBranches(state.branches, action), 
+    };
+};
+
+
 const updateById = (stateSubtreeToUpdate, action, baseStateTree) => {
     let newState = {};
     for (var conversationName in stateSubtreeToUpdate) {
@@ -38,24 +47,12 @@ const updateById = (stateSubtreeToUpdate, action, baseStateTree) => {
     return newState;
 };
 
-const conversation = (state, action, baseStateTree) => {
-    return {
-        id: updateConversationId(state.id, action),
-        participants: updateConversationParticipants(state.participants, action, baseStateTree),
-        branches: updateBranches(state.branches, action), 
-    };
-};
-
 const conversations = (state, action) => {
     return {
-        ...state,
-        conversations: {
-            ...state.conversations,
-            currentConversation: updateCurrentConversation(state.conversations, action),
-            byId: updateById(state.conversations.byId, action, state),
+        ...state.conversations,
+        byId: updateById(state.conversations.byId, action, state),
 
-            allIds: updateAllIds(state.conversations.allIds, action)
-        }
+        allIds: updateAllIds(state.conversations.allIds, action)
     }
 };
 

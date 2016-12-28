@@ -2,11 +2,27 @@ import { connect } from 'react-redux';
 import MessageList from '../components/MessageList';
 
 const getVisibleMessages = (userInfo, conversations) => {
-    let currentConversation = userInfo.currentConversation;
-    let currentBranch = userInfo.currentBranch;
+    let currentConversationId = userInfo.currentConversation;
+    let currentBranchId = userInfo.currentBranch;
 
     //XXX: Add error checking here?
-    return conversations.byId[currentConversation].branches.byId[currentBranch].messages;
+    if (conversations) { 
+        if (conversations.byId) {
+            let currentConversation = conversations.byId[currentConversationId];
+
+            if (currentConversation) {
+
+                if(currentConversation.branches !== null && currentConversation.branches.byId[currentBranchId] !== null) {
+                    let currentBranch = currentConversation.branches.byId[currentBranchId];
+
+                    if (currentBranch.messages !== null) {
+                        return currentBranch.messages;
+                    }
+                }
+            }
+        }
+    }
+    return [];
 }
 
 const mapStateToProps = (state) => ({

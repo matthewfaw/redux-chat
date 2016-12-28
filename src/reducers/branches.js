@@ -43,3 +43,4 @@ const branches = (state, action) => {
     }
 };
 
+export default branches;
