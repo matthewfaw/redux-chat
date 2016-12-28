@@ -1,15 +1,13 @@
 import React, { PropTypes } from 'react';
 
-const Message = ({ messageInfo }) => (
-    <li>{messageInfo.sender},{messageInfo.time},{messageInfo.body}</li>
+const Message = ({ sender, time, body }) => (
+    <li>{sender},{time},{body}</li>
 );
 
 Message.propTypes = {
-    messageInfo: PropTypes.shape({
-        sender: PropTypes.string.isRequired,
-        time: PropTypes.string.isRequired,
-        body: PropTypes.string.isRequired,
-    }).isRequired,
+    sender: PropTypes.string.isRequired,
+    time: PropTypes.number.isRequired,
+    body: PropTypes.string.isRequired,
 }
 
 export default Message;

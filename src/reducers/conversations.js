@@ -11,12 +11,12 @@ const updateConversationId = (stateId="", action) => {
     }
 };
 
-const updateConversationParticipants = (stateParticipants=[], action, baseStateTree) => {
+const updateConversationParticipants = (stateParticipants=[], action, currentUserInfo) => {
     switch(action.type) {
         case ActionTypes.CREATE_CONVERSATION:
             return [
                 ...stateParticipants,
-                baseStateTree.currentUserInfo.name
+                currentUserInfo.name
             ];
         default:
             return stateParticipants;
@@ -41,21 +41,27 @@ const conversation = (state=
                         participants: undefined,
                         branches: undefined,
                     }
-    , action, baseStateTree) => {
+    , action, currentUserInfo) => {
     return {
         id: updateConversationId(state.id, action),
-        participants: updateConversationParticipants(state.participants, action, baseStateTree),
-        branches: updateBranches(state.branches, action), 
+        participants: updateConversationParticipants(state.participants, action, currentUserInfo),
+        branches: updateBranches(state.branches, action, currentUserInfo), 
     };
 };
 
 
-const updateById = (stateSubtreeToUpdate, action, baseStateTree) => {
+const updateById = (stateSubtreeToUpdate, action, currentUserInfo) => {
     switch(action.type) {
         case ActionTypes.CREATE_CONVERSATION:
             return {
                 ...stateSubtreeToUpdate,
-                [action.conversationName]: conversation(undefined, action, baseStateTree) 
+                [action.conversationName]: conversation(undefined, action, currentUserInfo) 
+            }
+        case ActionTypes.SEND_MESSAGE:
+            let conversationName = currentUserInfo.currentConversation;
+            return {
+                ...stateSubtreeToUpdate,
+                [conversationName]: conversation(stateSubtreeToUpdate[conversationName], action, currentUserInfo) 
             }
         default:
             return stateSubtreeToUpdate;
@@ -72,7 +78,7 @@ const updateById = (stateSubtreeToUpdate, action, baseStateTree) => {
 const conversations = (state, action) => {
     return {
         ...state.conversations,
-        byId: updateById(state.conversations.byId, action, state),
+        byId: updateById(state.conversations.byId, action, state.currentUserInfo),
 
         allIds: updateAllIds(state.conversations.allIds, action)
     }

@@ -8,7 +8,7 @@ const currentUserInfo = (state, action) => {
             currentConversation: "conv1",
             currentBranch: "branch1",
             isSendingMessage: false,
-            isLoadingMessage: false,
+            isLoadingMessages: false,
         };
     //} else {
         //return state;

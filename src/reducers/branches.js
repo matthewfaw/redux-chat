@@ -25,7 +25,7 @@ const branch = (state=
     }
 };
 
-const updateById = (state, action) => {
+const updateById = (state, action, currentUserInfo) => {
     switch(action.type) {
         case ActionTypes.CREATE_CONVERSATION:
             return {
@@ -36,14 +36,19 @@ const updateById = (state, action) => {
                 ...state,
                 [action.branchName]: branch(undefined, action),
             }
+        case ActionTypes.SEND_MESSAGE:
+            let currentBranch = currentUserInfo.currentBranch;
+            return {
+                ...state,
+                [currentBranch]: branch(state[currentBranch], action)
+            }
         default:
-            return state;
+            let newState = {};
+            for (var byIdName in state) {
+                newState[byIdName] = branch(state[byIdName], action);
+            }
+            return newState;
     }
-    //let newState = {};
-    //for (var byIdName in state) {
-        //newState[byIdName] = branch(state[byIdName], action);
-    //}
-    //return newState;
 };
 
 const updateAllIds = (state, action) => {
@@ -68,9 +73,9 @@ const branches = (state=
                     byId: {},
                     allIds: [],
                 }, 
-                action) => {
+                action, currentUserInfo) => {
     return {
-        byId: updateById(state.byId, action),
+        byId: updateById(state.byId, action, currentUserInfo),
         allIds: updateAllIds(state.allIds, action),
     }
 };

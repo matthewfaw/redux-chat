@@ -23,7 +23,7 @@ ConversationPreviewList.propTypes = {
         currentConversation: PropTypes.string.isRequired,
         currentBranch: PropTypes.string.isRequired,
         isSendingMessage: PropTypes.bool.isRequired,
-        isLoadingMessage: PropTypes.bool.isRequired,
+        isLoadingMessages: PropTypes.bool.isRequired,
     }).isRequired,
 };
 
