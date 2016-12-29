@@ -4,12 +4,24 @@ import VisibleConversationPreviewList from '../containers/VisibleConversationPre
 import VisibleMessageSender from '../containers/VisibleMessageSender';
 import VisibleConversationAdder from '../containers/VisibleConversationAdder';
 
+import NavbarInstance from './bootstrap/Navbar';
+import { Grid, Row, Col } from 'react-bootstrap';
+
 const App = () => (
     <div>
-       <VisibleConversationPreviewList />
-       <VisibleConversationAdder buttonText="Add Conversation"/>
-       <VisibleMessageList /> 
-       <VisibleMessageSender buttonText="Send Message"/> 
+        <NavbarInstance />
+        <Grid>
+            <Row>
+                <Col xs={6}>
+                   <VisibleConversationPreviewList />
+                   <VisibleConversationAdder buttonText="Add Conversation"/>
+                </Col>
+                <Col xs={6}>
+                   <VisibleMessageList /> 
+                   <VisibleMessageSender buttonText="Send Message"/> 
+                </Col>
+            </Row>
+        </Grid>
     </div>
 );
 
