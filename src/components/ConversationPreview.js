@@ -1,9 +1,10 @@
 import React, { PropTypes } from 'react';
+import { ListGroupItem } from 'react-bootstrap';
 
 const ConversationPreview = ({ onClick, title }) => (
-    <li onClick={onClick}>
+    <ListGroupItem onClick={onClick}>
         {title}
-    </li>
+    </ListGroupItem>
 );
 
 ConversationPreview.propTypes = {

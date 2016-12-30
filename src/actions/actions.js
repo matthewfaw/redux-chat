@@ -7,6 +7,16 @@ export const loadConversation = (conversationId) => ({
     id: conversationId,
 });
 
+export const changeMessageText = (newText) => ({
+    type: ActionTypes.CHANGE_MESSAGE_TEXT,
+    text: newText,
+})
+
+export const changeConversationText = (newText) => ({
+    type: ActionTypes.CHANGE_CONVERSATION_TEXT,
+    text: newText,
+})
+
 export const sendMessage = (message, sender) => ({
     type: ActionTypes.SEND_MESSAGE,
     status: ActionStatus.REQUESTING,

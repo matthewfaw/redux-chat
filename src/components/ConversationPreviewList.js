@@ -1,10 +1,11 @@
 import React, { PropTypes } from 'react';
 import ConversationPreview from './ConversationPreview';
+import { ListGroup } from 'react-bootstrap';
 
 let ConversationPreviewList = ({ conversations, onConversationClicked, currentUser }) => {
     let counter = 0;
     return (
-        <ul>
+        <ListGroup>
             {conversations.map( conversation => 
                 <ConversationPreview 
                     key={counter++}
@@ -12,7 +13,7 @@ let ConversationPreviewList = ({ conversations, onConversationClicked, currentUs
                     onClick={() => onConversationClicked(conversation.id, currentUser.name)}
                 />
             )}
-        </ul>
+        </ListGroup>
     )
 };
 
