@@ -1,4 +1,5 @@
-import ActionTypes from '../actions/actionTypes';
+import ActionTypes from '../../actions/actionTypes';
+import terminal from './terminal';
 
 const currentMessage = (state='', action) => {
     switch(action.type) {
@@ -19,16 +20,18 @@ const currentConversationText = (state='', action) => {
 }
 
 const gui = (state=
-        {
-            currentMessage: undefined, 
-            currentConversationText: undefined,
-        }, 
-        action, baseState) => {
-            return {
-                ...state,
-                currentMessage: currentMessage(state.currentMessage, action),
-                currentConversationText: currentConversationText(state.currentConversationText, action),
-            }
-        }
+{
+    terminal: undefined,
+    currentMessage: undefined, 
+    currentConversationText: undefined,
+}, 
+action) => {
+    return {
+        ...state,
+        terminal: terminal(state.terminal, action),
+        currentMessage: currentMessage(state.currentMessage, action),
+        currentConversationText: currentConversationText(state.currentConversationText, action),
+    }
+}
 
 export default gui;

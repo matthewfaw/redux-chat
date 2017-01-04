@@ -1,6 +1,6 @@
-import currentUserInfo from './currentUserInfo';
-import conversations from './conversations';
-import gui from './gui';
+import currentUserInfo from './user/currentUserInfo';
+import conversations from './conversations/conversations';
+import gui from './gui/gui';
 
 //const rootReducer = combineReducers({
     //currentUserInfo,
@@ -8,17 +8,17 @@ import gui from './gui';
 //});
 
 const root = (state=
-            {
-                gui: undefined,
-                currentUserInfo: undefined,
-                conversations: undefined,
-            }
-    , action) => {
+{
+    gui: undefined,
+    currentUserInfo: undefined,
+    conversations: undefined,
+}
+, action) => {
     return {
         ...state,
-        gui: gui(state.gui, action, state),
-        currentUserInfo: currentUserInfo(state.currentUserInfo, action, state),
-        conversations: conversations(state.conversations, action, state)
+        gui: gui(state.gui, action),
+        currentUserInfo: currentUserInfo(state.currentUserInfo, action),
+        conversations: conversations(state.conversations, action, state.currentUserInfo)
     }
 }
 

@@ -1,5 +1,5 @@
-import ActionTypes from '../actions/actionTypes'
-import ActionStatus from '../actions/actionStatus'
+import ActionTypes from '../../actions/actionTypes'
+import ActionStatus from '../../actions/actionStatus'
 
 const updateName = (state="Matthew", action) => {
     switch(action.type) {
@@ -61,14 +61,14 @@ const updateIsLoadingMessages = (state=false, action) => {
 }
 
 const currentUserInfo = (state=
-            {
-                name: undefined,
-                currentConversation: undefined,
-                currentBranch: undefined,
-                isSendingMessage: undefined,
-                isLoadingMessages: undefined,
-            }
-    , action, rootState) => {
+{
+    name: undefined,
+    currentConversation: undefined,
+    currentBranch: undefined,
+    isSendingMessage: undefined,
+    isLoadingMessages: undefined,
+}
+, action) => {
     return {
         ...state,
         name: updateName(state.name, action),

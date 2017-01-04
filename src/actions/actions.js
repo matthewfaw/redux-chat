@@ -30,6 +30,16 @@ export const addParticipant = (participantId) => ({
     id: participantId,
 });
 
+export const changeTerminalInputText = (text) => ({
+    type: ActionTypes.CHANGE_TERMINAL_INPUT_TEXT,
+    text: text,
+});
+
+export const submitTerminalInputText = (text) => ({
+    type: ActionTypes.SUBMIT_TERMINAL_INPUT_TEXT,
+    text: text,
+})
+
 export const createBranch = (branchName) => ({
     type: ActionTypes.CREATE_BRANCH,
     branchName: branchName,

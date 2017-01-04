@@ -1,4 +1,4 @@
-import ActionTypes from '../actions/actionTypes';
+import ActionTypes from '../../actions/actionTypes';
 
 import updateBranches from './branches.js';
 
@@ -80,10 +80,10 @@ const conversations = (state=
                 byId: undefined,
                 allIds: undefined
             }
-    , action, rootState) => {
+    , action, currentUserInfo) => {
     return {
         ...state.conversations,
-        byId: updateById(state.byId, action, rootState.currentUserInfo),
+        byId: updateById(state.byId, action, currentUserInfo),
 
         allIds: updateAllIds(state.allIds, action)
     }
