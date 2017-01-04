@@ -2,6 +2,9 @@ import ActionTypes from '../../actions/actionTypes';
 
 const output = (state="", action) => {
     switch(action.type) {
+        case ActionTypes.SUBMIT_TERMINAL_INPUT_TEXT:
+            //TODO: Evaluate here?
+            return state;
         default:
             return state;
     }
@@ -9,6 +12,8 @@ const output = (state="", action) => {
 
 const input = (state="", action) => {
     switch(action.type) {
+        case ActionTypes.SUBMIT_TERMINAL_INPUT_TEXT:
+            return action.text;
         default:
             return state;
     }
@@ -25,7 +30,17 @@ const historyEntry = (state={
 }
 
 const history = (state=[], action) => {
-    return state.map(entry => historyEntry(entry, action));
+    switch(action.type) {
+        case ActionTypes.SUBMIT_TERMINAL_INPUT_TEXT:
+            return [
+                ...state,
+                input(undefined, action),
+            ]
+        default:
+            return state;
+    
+    }
+    //return state.map(entry => historyEntry(entry, action));
 }
 
 const currentInputText = (state="", action) => {
