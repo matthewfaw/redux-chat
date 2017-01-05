@@ -33,8 +33,8 @@ const history = (state=[], action) => {
     switch(action.type) {
         case ActionTypes.SUBMIT_TERMINAL_INPUT_TEXT:
             return [
-                ...state,
                 historyEntry(undefined, action),
+                ...state,
             ]
         default:
             return state;

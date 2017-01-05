@@ -1,18 +1,21 @@
 import React from 'react';
-import { Form, InputGroup, FormControl } from 'react-bootstrap';
+import { Form, InputGroup, FormControl, Well } from 'react-bootstrap';
 
-const TerminalLine = ({ lineNumber, onChangeInputText, onSubmitInputText, isEditable, currentInputText, output }) => (
+const TerminalLine = ({ style, lineNumber, onChangeInputText, onSubmitInputText, isEditable, currentInputText, output }) => (
     <Form onSubmit={
         e => {
             e.preventDefault();
             onSubmitInputText(currentInputText);
         }}>
-            <InputGroup>
-                <InputGroup.Addon>$ {lineNumber}</InputGroup.Addon>
-                <FormControl type="text" 
+            <InputGroup >
+                <InputGroup.Addon style={style}>$ {lineNumber}</InputGroup.Addon>
+                <FormControl style={style} type="text" disabled={!isEditable}
                     value={ isEditable ? currentInputText : `${currentInputText}, ${output}`}
                     onChange={onChangeInputText} />
             </ InputGroup>
+            { !isEditable &&
+                <Well style={style}>{output}</Well>
+            }
     </Form>
 );
 

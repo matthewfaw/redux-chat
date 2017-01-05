@@ -8,9 +8,24 @@ import VisibleTerminalView from '../containers/VisibleTerminalView';
 import NavbarInstance from './bootstrap/Navbar';
 import { Grid, Row, Col } from 'react-bootstrap';
 
-const style = {
+const spacing = {
     paddingTop: 70,
     paddingBottom: 70
+}
+
+const terminalBackground = {
+    background: "#000000",
+    "min-height": 500,
+    "max-height": 500,
+    "overflow-y":"scroll",
+}
+
+const lineStyle = {
+    background: "#000000",
+    color: "#ffffff",
+    border: 0,
+    "box-shadow": "none",
+    "cursor": "default",
 }
 
 const App = () => (
@@ -27,9 +42,9 @@ const App = () => (
                    <VisibleMessageSender buttonText="Send Message"/> 
                 </Col>
             </Row>
-            <Row style={style}>
+            <Row style={spacing}>
                 <Col xs={8} xsOffset={1}>
-                    <VisibleTerminalView />
+                    <VisibleTerminalView backgroundStyle={terminalBackground} lineStyle={lineStyle}/>
                 </Col>
             </Row>
         </Grid>
