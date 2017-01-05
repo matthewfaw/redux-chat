@@ -10,7 +10,7 @@ const TerminalLine = ({ style, lineNumber, onChangeInputText, onSubmitInputText,
             <InputGroup >
                 <InputGroup.Addon style={style}>$ {lineNumber}</InputGroup.Addon>
                 <FormControl style={style} type="text" disabled={!isEditable}
-                    value={ isEditable ? currentInputText : `${currentInputText}, ${output}`}
+                    value={currentInputText}
                     onChange={onChangeInputText} />
             </ InputGroup>
             { !isEditable &&
