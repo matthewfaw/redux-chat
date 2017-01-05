@@ -1,10 +1,11 @@
 import React, { PropTypes } from 'react';
 import Message from './Message';
+import { ListGroup } from 'react-bootstrap';
 
 let MessageList = ({ messages }) => {
     let counter = 0;
     return (
-        <ul>
+        <ListGroup>
             {messages.map(message => 
                 <Message
                     key={counter++}
@@ -13,7 +14,7 @@ let MessageList = ({ messages }) => {
                     body={message.body}
                 />
             )}
-        </ul>
+        </ListGroup>
     );
 };
 

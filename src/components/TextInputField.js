@@ -1,27 +1,20 @@
 import React from 'react';
+import { Form, FormControl, Button } from 'react-bootstrap';
 
-let TextInputField = ({ onSubmitText, currentUser, buttonText }) => {
-    let input;
-
+const TextInputField = ({ fieldText, onChangeText, onSubmitText, currentUser, buttonText }) => {
     return (
         <div>
-            <form onSubmit={
+            <Form inline onSubmit={
                 e => {
                     e.preventDefault();
-                    if (!input.value.trim()) {
-                        return;
-                    }
-                    onSubmitText(input.value, currentUser);
-                    input.value = '';
+                    onSubmitText(fieldText, currentUser);
                 }
             } >
-                <input ref={node => {
-                    input = node;
-                }} />
-                <button type="submit">
+                <FormControl type="text" value={fieldText} onChange={onChangeText} />
+                <Button type="submit">
                 {buttonText}
-                </button>
-            </form>
+                </Button>
+            </Form>
         </div>
     );
 }

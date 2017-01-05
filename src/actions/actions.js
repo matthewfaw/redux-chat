@@ -7,6 +7,16 @@ export const loadConversation = (conversationId) => ({
     id: conversationId,
 });
 
+export const changeMessageText = (newText) => ({
+    type: ActionTypes.CHANGE_MESSAGE_TEXT,
+    text: newText,
+})
+
+export const changeConversationText = (newText) => ({
+    type: ActionTypes.CHANGE_CONVERSATION_TEXT,
+    text: newText,
+})
+
 export const sendMessage = (message, sender) => ({
     type: ActionTypes.SEND_MESSAGE,
     status: ActionStatus.REQUESTING,
@@ -19,6 +29,16 @@ export const addParticipant = (participantId) => ({
     type: ActionTypes.ADD_PARTICIPANT,
     id: participantId,
 });
+
+export const changeTerminalInputText = (text) => ({
+    type: ActionTypes.CHANGE_TERMINAL_INPUT_TEXT,
+    text: text,
+});
+
+export const submitTerminalInputText = (text) => ({
+    type: ActionTypes.SUBMIT_TERMINAL_INPUT_TEXT,
+    text: text,
+})
 
 export const createBranch = (branchName) => ({
     type: ActionTypes.CREATE_BRANCH,

@@ -1,5 +1,5 @@
-import ActionTypes from '../actions/actionTypes'
-import ActionStatus from '../actions/actionStatus'
+import ActionTypes from '../../actions/actionTypes'
+import ActionStatus from '../../actions/actionStatus'
 
 const updateName = (state="Matthew", action) => {
     switch(action.type) {
@@ -10,6 +10,8 @@ const updateName = (state="Matthew", action) => {
 
 const updateCurrentConversation = (state="", action) => {
     switch(action.type) {
+        case ActionTypes.LOAD_CONVERSATION:
+            return action.id
         case ActionTypes.CREATE_CONVERSATION:
             if (state === "") {
                 return action.conversationName;
@@ -61,14 +63,14 @@ const updateIsLoadingMessages = (state=false, action) => {
 }
 
 const currentUserInfo = (state=
-            {
-                name: undefined,
-                currentConversation: undefined,
-                currentBranch: undefined,
-                isSendingMessage: undefined,
-                isLoadingMessages: undefined,
-            }
-    , action, rootState) => {
+{
+    name: undefined,
+    currentConversation: undefined,
+    currentBranch: undefined,
+    isSendingMessage: undefined,
+    isLoadingMessages: undefined,
+}
+, action) => {
     return {
         ...state,
         name: updateName(state.name, action),

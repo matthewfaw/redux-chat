@@ -1,7 +1,8 @@
 import React, { PropTypes } from 'react';
+import { ListGroupItem } from 'react-bootstrap';
 
 const Message = ({ sender, time, body }) => (
-    <li>{sender},{time},{body}</li>
+    <ListGroupItem>{sender},{time},{body}</ListGroupItem>
 );
 
 Message.propTypes = {

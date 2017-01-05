@@ -1,4 +1,4 @@
-import ActionTypes from '../actions/actionTypes'
+import ActionTypes from '../../actions/actionTypes'
 
 const message = (state=
             {
