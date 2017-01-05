@@ -1,6 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
+import { Router, Route, browserHistory } from 'react-router';
 import { createStore } from 'redux';
 import rootReducer from './reducers/root.js';
 //import devToolsEnhancer from 'remote-redux-devtools';
@@ -10,7 +11,11 @@ let store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && wind
 
 render(
     <Provider store={store}>
-        <App />
+        <Router history={browserHistory}>
+            <Route path="/(:filter)" component={App} />
+        </Router>
     </Provider>,
     document.getElementById('root')
 );
+
+
