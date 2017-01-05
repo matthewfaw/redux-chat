@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
-import { changeTerminalInputText, submitTerminalInputText } from '../actions/actions';
+import { changeTerminalInputText } from '../actions/actions';
+import { fetchSongs } from '../actions/asyncActions';
 import TerminalView from '../components/TerminalView';
 
 const mapStateToProps = (state, ownProps) => ({
@@ -11,7 +12,7 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     onChangeInputText: (text) => dispatch(changeTerminalInputText(text)),
-    onSubmitInputText: (text) => dispatch(submitTerminalInputText(text)),
+    onSubmitInputText: (text) => dispatch(fetchSongs(text)),
 });
 
 const ViewableTerminalView = connect(
