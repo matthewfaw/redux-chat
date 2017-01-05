@@ -15,22 +15,23 @@ const spacing = {
 
 const terminalBackground = {
     background: "#000000",
-    "min-height": 500,
-    "max-height": 500,
-    "overflow-y":"scroll",
+    minHeight: 500,
+    maxHeight: 500,
+    overflowY:"scroll",
 }
 
 const lineStyle = {
     background: "#000000",
     color: "#ffffff",
     border: 0,
-    "box-shadow": "none",
-    "cursor": "default",
+    boxShadow: "none",
+    cursor: "default",
 }
 
-const App = () => (
+const App = ({ params }) => (
     <div>
         <NavbarInstance />
+        <h1>{params.filter}</h1>
         <Grid>
             <Row>
                 <Col xs={6}>
