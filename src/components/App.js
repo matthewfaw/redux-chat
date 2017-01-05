@@ -29,6 +29,7 @@ const lineStyle = {
     paddingTop: 0,
     paddingBottom: 0,
     paddingLeft: 0,
+    minHeight: 0,
 }
 
 const App = ({ params }) => (

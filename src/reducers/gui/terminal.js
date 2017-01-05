@@ -1,10 +1,15 @@
 import ActionTypes from '../../actions/actionTypes';
+import ActionStatus from '../../actions/actionStatus';
 
 const output = (state="", action) => {
     switch(action.type) {
         case ActionTypes.SUBMIT_TERMINAL_INPUT_TEXT:
             //TODO: Evaluate here?
-            return "OUTPUT";
+            if (action.status === ActionStatus.FINISHED) {
+                return action.response;
+            } else {
+                return state;
+            }
         default:
             return state;
     }
@@ -32,10 +37,14 @@ const historyEntry = (state={
 const history = (state=[], action) => {
     switch(action.type) {
         case ActionTypes.SUBMIT_TERMINAL_INPUT_TEXT:
-            return [
-                ...state,
-                historyEntry(undefined, action),
-            ]
+            if (action.status === ActionStatus.FINISHED) {
+                return [
+                    ...state,
+                    historyEntry(undefined, action),
+                ]
+            } else {
+                return state;
+            }
         default:
             return state;
     
@@ -48,7 +57,11 @@ const currentInputText = (state="", action) => {
         case ActionTypes.CHANGE_TERMINAL_INPUT_TEXT:
             return action.text;
         case ActionTypes.SUBMIT_TERMINAL_INPUT_TEXT:
-            return "";
+            if (action.status === ActionStatus.FINISHED) {
+                return "";
+            } else {
+                return state;
+            }
         default:
             return state;
     }

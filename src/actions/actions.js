@@ -35,10 +35,12 @@ export const changeTerminalInputText = (text) => ({
     text: text,
 });
 
-export const submitTerminalInputText = (text) => ({
+export const submitTerminalInputText = (text, response, status) => ({
     type: ActionTypes.SUBMIT_TERMINAL_INPUT_TEXT,
+    response: response,
+    status: status,
     text: text,
-})
+});
 
 export const createBranch = (branchName) => ({
     type: ActionTypes.CREATE_BRANCH,

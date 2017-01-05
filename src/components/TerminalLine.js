@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, InputGroup, FormControl, Well } from 'react-bootstrap';
+import { Form, InputGroup, FormControl, Well, ListGroup, ListGroupItem } from 'react-bootstrap';
 
 const TerminalLine = ({ style, lineNumber, onChangeInputText, onSubmitInputText, isEditable, currentInputText, output }) => (
     <Form onSubmit={
@@ -7,14 +7,20 @@ const TerminalLine = ({ style, lineNumber, onChangeInputText, onSubmitInputText,
             e.preventDefault();
             onSubmitInputText(currentInputText);
         }}>
-            <InputGroup >
+            <InputGroup>
                 <InputGroup.Addon style={style}>$ {lineNumber}</InputGroup.Addon>
                 <FormControl style={style} type="text" disabled={!isEditable}
                     value={currentInputText}
                     onChange={onChangeInputText} autoFocus />
             </ InputGroup>
             { !isEditable &&
-                <Well style={style}>{output}</Well>
+            <Well style={style}>
+                <ListGroup>
+                    {output.map(
+                        artist => <ListGroupItem style={style}>{artist}</ListGroupItem>
+                    )}
+                </ListGroup>
+            </Well>
             }
     </Form>
 );
