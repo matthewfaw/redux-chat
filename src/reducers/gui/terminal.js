@@ -4,7 +4,7 @@ const output = (state="", action) => {
     switch(action.type) {
         case ActionTypes.SUBMIT_TERMINAL_INPUT_TEXT:
             //TODO: Evaluate here?
-            return state;
+            return "OUTPUT";
         default:
             return state;
     }
@@ -34,7 +34,7 @@ const history = (state=[], action) => {
         case ActionTypes.SUBMIT_TERMINAL_INPUT_TEXT:
             return [
                 ...state,
-                input(undefined, action),
+                historyEntry(undefined, action),
             ]
         default:
             return state;
@@ -47,6 +47,8 @@ const currentInputText = (state="", action) => {
     switch(action.type) {
         case ActionTypes.CHANGE_TERMINAL_INPUT_TEXT:
             return action.text;
+        case ActionTypes.SUBMIT_TERMINAL_INPUT_TEXT:
+            return "";
         default:
             return state;
     }

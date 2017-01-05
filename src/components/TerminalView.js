@@ -6,14 +6,15 @@ let TerminalView = ({ terminalHistory, currentInputText, onChangeInputText, onSu
     let counter = 0;
     return (
         <FormGroup>
-            {terminalHistory.forEach( item => 
+            {terminalHistory.map( item => 
                 <TerminalLine
                     key={counter++}
                     lineNumber={counter}
                     onChangeInputText={ (event) => onChangeInputText(event.target.value) }
+                    onSubmitInputText={ () => ({})}
                     isEditable={false}
-                    currentInputText={item.inputText}
-                    output={item.outputText}
+                    currentInputText={item.input}
+                    output={item.output}
                 />
              )}
             <TerminalLine
