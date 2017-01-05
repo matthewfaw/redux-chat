@@ -10,7 +10,7 @@ let ConversationPreviewList = ({ conversations, onConversationClicked, currentUs
                 <ConversationPreview 
                     key={counter++}
                     title={conversation}
-                    onClick={() => onConversationClicked(conversation.id, currentUser.name)}
+                    onClick={() => onConversationClicked(conversation)}
                 />
             )}
         </ListGroup>

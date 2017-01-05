@@ -10,6 +10,8 @@ const updateName = (state="Matthew", action) => {
 
 const updateCurrentConversation = (state="", action) => {
     switch(action.type) {
+        case ActionTypes.LOAD_CONVERSATION:
+            return action.id
         case ActionTypes.CREATE_CONVERSATION:
             if (state === "") {
                 return action.conversationName;

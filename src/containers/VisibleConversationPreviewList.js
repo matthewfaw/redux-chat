@@ -12,7 +12,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    onConversationClicked: (conversationId, userId) => dispatch(loadConversation(conversationId, userId)),
+    onConversationClicked: (conversationId) => dispatch(loadConversation(conversationId)),
 });
 
 const VisibleConversationPreviewList  = connect(

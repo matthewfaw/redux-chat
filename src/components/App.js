@@ -8,6 +8,11 @@ import VisibleTerminalView from '../containers/VisibleTerminalView';
 import NavbarInstance from './bootstrap/Navbar';
 import { Grid, Row, Col } from 'react-bootstrap';
 
+const style = {
+    paddingTop: 70,
+    paddingBottom: 70
+}
+
 const App = () => (
     <div>
         <NavbarInstance />
@@ -22,8 +27,8 @@ const App = () => (
                    <VisibleMessageSender buttonText="Send Message"/> 
                 </Col>
             </Row>
-            <Row>
-                <Col xs={8} xsOffset={2}>
+            <Row style={style}>
+                <Col xs={8} xsOffset={1}>
                     <VisibleTerminalView />
                 </Col>
             </Row>
