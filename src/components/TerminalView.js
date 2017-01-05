@@ -7,16 +7,6 @@ let TerminalView = ({ terminalHistory, currentInputText, onChangeInputText, onSu
     return (
         <Well style={backgroundStyle}>
             <FormGroup>
-                <TerminalLine
-                    key={counter++}
-                    style={lineStyle}
-                    lineNumber={counter}
-                    onChangeInputText={ (event) => onChangeInputText(event.target.value) }
-                    onSubmitInputText={onSubmitInputText}
-                    isEditable={true}
-                    currentInputText={currentInputText}
-                    output={'  '}
-                />
                 {terminalHistory.map( item => 
                     <TerminalLine
                         key={counter++}
@@ -29,6 +19,16 @@ let TerminalView = ({ terminalHistory, currentInputText, onChangeInputText, onSu
                         output={item.output}
                     />
                  )}
+                <TerminalLine
+                    key={counter++}
+                    style={lineStyle}
+                    lineNumber={counter}
+                    onChangeInputText={ (event) => onChangeInputText(event.target.value) }
+                    onSubmitInputText={onSubmitInputText}
+                    isEditable={true}
+                    currentInputText={currentInputText}
+                    output={'  '}
+                />
             </FormGroup>
         </Well>
     );
