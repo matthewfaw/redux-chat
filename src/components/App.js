@@ -26,6 +26,9 @@ const lineStyle = {
     border: 0,
     boxShadow: "none",
     cursor: "default",
+    paddingTop: 0,
+    paddingBottom: 0,
+    paddingLeft: 0,
 }
 
 const App = ({ params }) => (
