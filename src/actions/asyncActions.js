@@ -1,4 +1,5 @@
 import { submitTerminalInputText } from './actions';
+import fetch from 'isomorphic-fetch'
 import ActionStatus from './actionStatus';
 
 export const fetchSongs = (artist) => {
