@@ -2,6 +2,8 @@ import express from 'express';
 import path from 'path';
 import bodyParser from 'body-parser';
 
+import { User } from './mongo_connector';
+
 const app = express();
 const PORT = 3000;
 
@@ -21,7 +23,9 @@ app.get('/', (req, res) => {
 });
 
 app.post('/list', (req, res) => {
-    console.log(req.body)
+    console.log(req.body);
+    let derpton = new User({ name: req.body.login });
+    derpton.save();
 });
 
 app.listen(PORT, function () {
