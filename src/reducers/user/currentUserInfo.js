@@ -14,10 +14,14 @@ const updateCurrentConversation = (state="", action) => {
         case ActionTypes.LOAD_CONVERSATION:
             browserHistory.push(`/${action.id}`)
             return action.id
-        case ActionTypes.CREATE_CONVERSATION:
+        case ActionTypes.ADD_CONVERSATION:
             if (state === "") {
-                browserHistory.push(`/${action.conversationName}`)
-                return action.conversationName;
+                if (action.status === ActionStatus.FINISHED) {
+                    browserHistory.push(`/${action.conversationName}`)
+                    return action.conversationName;
+                } else {
+                    return state;
+                }
             } else {
                 return state;
             }
@@ -28,9 +32,13 @@ const updateCurrentConversation = (state="", action) => {
 
 const updateCurrentBranch = (state="", action) => {
     switch(action.type) {
-        case ActionTypes.CREATE_CONVERSATION:
+        case ActionTypes.ADD_CONVERSATION:
             if (state === "") {
-                return action.defaultBranchName;
+                if (action.status === ActionStatus.FINISHED) {
+                    return action.defaultBranchName;
+                } else {
+                    return state;
+                }
             } else {
                 return state;
             }

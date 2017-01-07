@@ -2,7 +2,7 @@ import express from 'express';
 import path from 'path';
 import bodyParser from 'body-parser';
 
-import { User } from './mongo_connector';
+import { User, Conversation } from './mongo_connector';
 
 const app = express();
 const PORT = 3000;
@@ -24,9 +24,30 @@ app.get('/', (req, res) => {
 
 app.post('/list', (req, res) => {
     console.log(req.body);
-    let derpton = new User({ name: req.body.login });
-    derpton.save();
+    //let derpton = new User({ name: req.body.login });
+    //derpton.save();
+    res.end();
 });
+
+app.route('/conversations')
+    .post((req, res) => {
+        console.log(req.body);
+        let newConversation = new Conversation({ name: req.body.name });
+        newConversation.save((err) => {
+            User.findOne({ name: req.body.creatorId }, (err, user) => {
+                console.log(user.name);
+                user.conversations.push(newConversation._id);
+                user.markModified('conversations');
+                console.log(user);
+                user.save();
+                newConversation.participants.push(user._id);
+                newConversation.markModified('participants');
+                console.log(newConversation);
+                newConversation.save();
+            })
+        })
+        res.end();
+    })
 
 app.listen(PORT, function () {
   console.log(`Example app listening on port ${PORT}!`)

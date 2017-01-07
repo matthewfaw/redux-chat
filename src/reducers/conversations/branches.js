@@ -1,11 +1,15 @@
-import ActionTypes from '../../actions/actionTypes'
-
+import ActionTypes from '../../actions/actionTypes';
+import ActionStatus from '../../actions/actionStatus';
 import updateMessages from './messages';
 
 const updateBranchId = (stateId="", action) => {
     switch(action.type) {
-        case ActionTypes.CREATE_CONVERSATION:
-            return action.defaultBranchName;
+        case ActionTypes.ADD_CONVERSATION:
+            if (action.status === ActionStatus.FINISHED) {
+                return action.defaultBranchName;
+            } else {
+                return stateId;
+            }
         case ActionTypes.CREATE_BRANCH:
             return action.branchName;
         default:
@@ -27,9 +31,13 @@ const branch = (state=
 
 const updateById = (state, action, currentUserInfo) => {
     switch(action.type) {
-        case ActionTypes.CREATE_CONVERSATION:
-            return {
-                [action.defaultBranchName]: branch(undefined, action),
+        case ActionTypes.ADD_CONVERSATION:
+            if (action.status === ActionStatus.FINISHED) {
+                return {
+                    [action.defaultBranchName]: branch(undefined, action),
+                }
+            } else {
+                return state;
             }
         case ActionTypes.CREATE_BRANCH:
             return {
@@ -53,11 +61,15 @@ const updateById = (state, action, currentUserInfo) => {
 
 const updateAllIds = (state, action) => {
     switch(action.type) {
-        case ActionTypes.CREATE_CONVERSATION:
-            return [
-                ...state,
-                action.defaultBranchName,
-            ]
+        case ActionTypes.ADD_CONVERSATION:
+            if (action.status === ActionStatus.FINISHED) {
+                return [
+                    ...state,
+                    action.defaultBranchName,
+                ]
+            } else {
+                return state;
+            }
         case ActionTypes.CREATE_BRANCH:
             return [
                 ...state,
