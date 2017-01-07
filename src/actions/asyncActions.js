@@ -2,11 +2,9 @@ import { submitTerminalInputText } from './actions';
 import fetch from 'isomorphic-fetch'
 import ActionStatus from './actionStatus';
 import { SERVER_URL } from '../utils/defaults';
-import { browserHistory } from 'react-router';
 
 export const fetchSongs = (artist) => {
     return dispatch => {
-        browserHistory.push(`${artist}`)
         dispatch(submitTerminalInputText(artist,[], ActionStatus.REQUESTING));
         const stripped = encodeURIComponent(artist.trim())
         return fetch(`https://api.spotify.com/v1/search?q=${stripped}&type=artist`)
