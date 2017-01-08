@@ -57,8 +57,9 @@ export const deleteBranch = (branchName) => ({
     branchName: branchName,
 });
 
-export const createConversation = (conversationName) => ({
-    type: ActionTypes.CREATE_CONVERSATION,
+export const addConversation = (conversationName, status) => ({
+    type: ActionTypes.ADD_CONVERSATION,
+    status: status,
     conversationName: conversationName,
     defaultBranchName: "DEFAULT",
 });

@@ -1,5 +1,6 @@
 import ActionTypes from '../../actions/actionTypes'
 import ActionStatus from '../../actions/actionStatus'
+import { browserHistory } from 'react-router';
 
 const updateName = (state="Matthew", action) => {
     switch(action.type) {
@@ -11,10 +12,16 @@ const updateName = (state="Matthew", action) => {
 const updateCurrentConversation = (state="", action) => {
     switch(action.type) {
         case ActionTypes.LOAD_CONVERSATION:
+            browserHistory.push(`/${action.id}`)
             return action.id
-        case ActionTypes.CREATE_CONVERSATION:
+        case ActionTypes.ADD_CONVERSATION:
             if (state === "") {
-                return action.conversationName;
+                if (action.status === ActionStatus.FINISHED) {
+                    browserHistory.push(`/${action.conversationName}`)
+                    return action.conversationName;
+                } else {
+                    return state;
+                }
             } else {
                 return state;
             }
@@ -25,9 +32,13 @@ const updateCurrentConversation = (state="", action) => {
 
 const updateCurrentBranch = (state="", action) => {
     switch(action.type) {
-        case ActionTypes.CREATE_CONVERSATION:
+        case ActionTypes.ADD_CONVERSATION:
             if (state === "") {
-                return action.defaultBranchName;
+                if (action.status === ActionStatus.FINISHED) {
+                    return action.defaultBranchName;
+                } else {
+                    return state;
+                }
             } else {
                 return state;
             }
