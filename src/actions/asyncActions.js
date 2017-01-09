@@ -25,6 +25,16 @@ export const fetchSongs = (artist) => {
     };
 }
 
+export const loadAllConversations = (userName) => {
+    return dispatch => {
+        return fetch(`${SERVER_URL}/${userName}/conversations/`)
+            .then(response => response.json().conversations)
+            .then(conversations => conversations.forEach( conversation => {
+                dispatch(addConversation(name, ActionStatus.FINISHED));
+            } ))
+    }
+}
+
 export const createConversation = (name, creatorId) => {
     return dispatch => {
         dispatch(addConversation(name, ActionStatus.REQUESTING));
