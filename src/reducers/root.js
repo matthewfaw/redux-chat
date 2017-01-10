@@ -1,6 +1,8 @@
 import currentUserInfo from './user/currentUserInfo';
 import conversations from './conversations/conversations';
 import gui from './gui/gui';
+import { combineReducers } from 'redux';
+import { routerReducer } from 'react-router-redux';
 
 //const rootReducer = combineReducers({
     //currentUserInfo,
@@ -12,13 +14,15 @@ const root = (state=
     gui: undefined,
     currentUserInfo: undefined,
     conversations: undefined,
+    routing: undefined,
 }
 , action) => {
     return {
         ...state,
         gui: gui(state.gui, action),
         currentUserInfo: currentUserInfo(state.currentUserInfo, action),
-        conversations: conversations(state.conversations, action, state.currentUserInfo)
+        conversations: conversations(state.conversations, action, state.currentUserInfo),
+        routing: routerReducer(state.routing, action),
     }
 }
 

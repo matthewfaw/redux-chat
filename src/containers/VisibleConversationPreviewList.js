@@ -1,6 +1,8 @@
 import { connect } from 'react-redux';
 import { loadConversation } from '../actions/actions';
 import ConversationPreviewList from '../components/ConversationPreviewList';
+import { push } from 'react-router-redux';
+import { browserHistory } from 'react-router';
 
 const getVisibleConversation = (userInfo, conversations) => {
     return conversations.allIds;
@@ -12,7 +14,11 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    onConversationClicked: (conversationId) => dispatch(loadConversation(conversationId)),
+    onConversationClicked: (conversationId) => {
+        dispatch(loadConversation(conversationId));
+        dispatch(push(`/${conversationId}`));
+        //browserHistory.push(`/${conversationId}`)
+    }
 });
 
 const VisibleConversationPreviewList  = connect(

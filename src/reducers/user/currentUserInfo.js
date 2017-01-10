@@ -12,12 +12,12 @@ const updateName = (state="Matthew", action) => {
 const updateCurrentConversation = (state="", action) => {
     switch(action.type) {
         case ActionTypes.LOAD_CONVERSATION:
-            browserHistory.push(`/${action.id}`)
+            //browserHistory.push(`/${action.id}`)
             return action.id
         case ActionTypes.ADD_CONVERSATION:
             if (state === "") {
                 if (action.status === ActionStatus.FINISHED) {
-                    browserHistory.push(`/${action.conversationName}`)
+                    //browserHistory.push(`/${action.conversationName}`)
                     return action.conversationName;
                 } else {
                     return state;
