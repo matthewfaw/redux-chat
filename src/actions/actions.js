@@ -1,5 +1,4 @@
 import ActionTypes from './actionTypes';
-import ActionStatus from './actionStatus';
 
 export const requestLoadConversation = (conversationId) => ({
     type: ActionTypes.LOAD_CONVERSATION_REQUEST,

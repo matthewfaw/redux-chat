@@ -8,7 +8,7 @@ const message = (state=
             }
     , action) => {
     switch(action.type) {
-        case ActionTypes.SEND_MESSAGE:
+        case ActionTypes.SEND_MESSAGE_SUCCESS:
             return {
                 sender: action.sender,
                 time: action.time,
@@ -21,7 +21,7 @@ const message = (state=
 
 const messages = (state=[], action) => {
     switch(action.type) {
-        case ActionTypes.SEND_MESSAGE:
+        case ActionTypes.SEND_MESSAGE_SUCCESS:
             return [
                 ...state,
                 message(undefined, action),
