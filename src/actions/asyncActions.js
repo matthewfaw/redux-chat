@@ -5,7 +5,6 @@ import { SERVER_URL } from '../utils/defaults';
 export const fetchSongs = (artist) => {
     return dispatch => {
         dispatch(requestSubmitTerminalInputText(artist));
-        console.log(artist)
         const stripped = encodeURIComponent(artist.trim())
         return fetch(`https://api.spotify.com/v1/search?q=${stripped}&type=artist`)
             .then(response => response.json())
