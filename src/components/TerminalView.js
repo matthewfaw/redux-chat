@@ -27,7 +27,7 @@ let TerminalView = ({ terminalHistory, currentInputText, onChangeInputText, onSu
                     onSubmitInputText={onSubmitInputText}
                     isEditable={true}
                     currentInputText={currentInputText}
-                    output={'  '}
+                    output={[]}
                 />
             </FormGroup>
         </Well>

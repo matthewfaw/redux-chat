@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { loadConversation } from '../actions/actions';
+import { requestLoadConversation } from '../actions/actions';
 import ConversationPreviewList from '../components/ConversationPreviewList';
 
 const getVisibleConversation = (userInfo, conversations) => {
@@ -12,7 +12,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    onConversationClicked: (conversationId) => dispatch(loadConversation(conversationId)),
+    onConversationClicked: (conversationId) => dispatch(requestLoadConversation(conversationId)),
 });
 
 const VisibleConversationPreviewList  = connect(
