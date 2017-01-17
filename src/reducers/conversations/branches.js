@@ -28,6 +28,7 @@ const updateById = (state, action, currentUserInfo) => {
     switch(action.type) {
         case ActionTypes.ADD_CONVERSATION_SUCCESS:
             return {
+                ...state,
                 [action.defaultBranchName]: branch(undefined, action),
             }
         case ActionTypes.CREATE_BRANCH_SUCCESS:
@@ -42,11 +43,12 @@ const updateById = (state, action, currentUserInfo) => {
                 [currentBranch]: branch(state[currentBranch], action)
             }
         default:
-            let newState = {};
-            for (var byIdName in state) {
-                newState[byIdName] = branch(state[byIdName], action);
-            }
-            return newState;
+            return state;
+            //let newState = {};
+            //for (var byIdName in state) {
+                //newState[byIdName] = branch(state[byIdName], action);
+            //}
+            //return newState;
     }
 };
 

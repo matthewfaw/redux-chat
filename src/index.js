@@ -7,13 +7,17 @@ import thunk from 'redux-thunk';
 import rootReducer from './reducers/root.js';
 //import devToolsEnhancer from 'remote-redux-devtools';
 import App from './components/App';
+import { syncHistoryWithStore, routerMiddleware } from 'react-router-redux'
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-let store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
+const middleware = routerMiddleware(browserHistory)
+let store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk, middleware)));
+
+const history = syncHistoryWithStore(browserHistory, store);
 
 render(
     <Provider store={store}>
-        <Router history={browserHistory}>
+        <Router history={history}>
             <Route path="/(:filter)" component={App} />
         </Router>
     </Provider>,
