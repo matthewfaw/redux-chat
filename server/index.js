@@ -23,7 +23,6 @@ app.get('/', (req, res) => {
 });
 
 app.post('/list', (req, res) => {
-    console.log('derp');
     console.log(req.body);
     //let derpton = new User({ name: req.body.login });
     //derpton.save();
