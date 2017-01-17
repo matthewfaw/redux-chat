@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
-import { sendMessage, changeMessageText } from '../actions/actions';
+import { requestSendMessage } from '../actions/asyncActions';
+import { changeMessageText } from '../actions/actions';
 import TextInputField from '../components/TextInputField';
 
 const mapStateToProps = (state, ownProps) => ({
@@ -10,7 +11,7 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     onChangeText: (event) => dispatch(changeMessageText(event.target.value)),
-    onSubmitText: (text, sender) => dispatch(sendMessage(text, sender)),
+    onSubmitText: (text, sender) => dispatch(requestSendMessage(text, sender)),
 });
 
 const VisibleMessageSender = connect(

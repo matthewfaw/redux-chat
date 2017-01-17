@@ -1,10 +1,11 @@
-import { requestSubmitTerminalInputText, succeedSubmitTerminalInputText, requestAddConversation, succeedAddConversation } from './actions';
+import { requestSubmitTerminalInputText, succeedSubmitTerminalInputText, requestAddConversation, succeedAddConversation, requestAddMessage, succeedAddMessage } from './actions';
 import fetch from 'isomorphic-fetch'
 import { SERVER_URL } from '../utils/defaults';
 
 export const fetchSongs = (artist) => {
     return dispatch => {
         dispatch(requestSubmitTerminalInputText(artist));
+        console.log(artist)
         const stripped = encodeURIComponent(artist.trim())
         return fetch(`https://api.spotify.com/v1/search?q=${stripped}&type=artist`)
             .then(response => response.json())
@@ -24,7 +25,7 @@ export const fetchSongs = (artist) => {
     };
 }
 
-export const createConversation = (name, creatorId) => {
+export const requestCreateConversation = (name, creatorId) => {
     return dispatch => {
         dispatch(requestAddConversation(name));
         return fetch(`${SERVER_URL}/conversations`, {
@@ -39,5 +40,13 @@ export const createConversation = (name, creatorId) => {
             })
         })
         .then(dispatch(succeedAddConversation(name)))
+    }
+}
+
+export const requestSendMessage = (message, sender) => {
+    return dispatch => {
+        dispatch(requestAddMessage(message, sender));
+        dispatch(succeedAddMessage(message, sender));
+        return Promise.resolve();
     }
 }

@@ -1,6 +1,6 @@
 import ActionTypes from '../../actions/actionTypes';
 
-const output = (state="", action) => {
+const output = (state=[], action) => {
     switch(action.type) {
         case ActionTypes.SUBMIT_TERMINAL_INPUT_TEXT_SUCCESS:
             return action.response;
@@ -11,7 +11,7 @@ const output = (state="", action) => {
 
 const input = (state="", action) => {
     switch(action.type) {
-        case ActionTypes.SUBMIT_TERMINAL_INPUT_TEXT_REQUEST:
+        case ActionTypes.SUBMIT_TERMINAL_INPUT_TEXT_SUCCESS:
             return action.text;
         default:
             return state;
@@ -30,6 +30,7 @@ const historyEntry = (state={
 
 const history = (state=[], action) => {
     switch(action.type) {
+        //case ActionTypes.SUBMIT_TERMINAL_INPUT_TEXT_REQUEST:
         case ActionTypes.SUBMIT_TERMINAL_INPUT_TEXT_SUCCESS:
             return [
                 ...state,

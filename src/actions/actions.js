@@ -24,20 +24,20 @@ export const changeConversationText = (newText) => ({
     text: newText,
 })
 
-export const requestSendMessage = (message, sender) => ({
+export const requestAddMessage = (message, sender) => ({
     type: ActionTypes.SEND_MESSAGE_REQUEST,
     sender: sender,
     time: Date.now(),
     message: message,
 });
-export const failSendMessage = (message, sender, error) => ({
+export const failAddMessage = (message, sender, error) => ({
     type: ActionTypes.SEND_MESSAGE_FAIL,
     sender: sender,
     time: Date.now(),
     message: message,
     error: error,
 });
-export const succeedSendMessage = (message, sender) => ({
+export const succeedAddMessage = (message, sender) => ({
     type: ActionTypes.SEND_MESSAGE_SUCCESS,
     sender: sender,
     time: Date.now(),
