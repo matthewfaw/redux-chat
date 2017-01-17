@@ -1,12 +1,11 @@
 import ActionTypes from '../../actions/actionTypes';
-import ActionStatus from '../../actions/actionStatus';
 import terminal from './terminal';
 
 const currentMessage = (state='', action) => {
     switch(action.type) {
         case ActionTypes.CHANGE_MESSAGE_TEXT:
             return action.text;
-        case ActionTypes.SEND_MESSAGE:
+        case ActionTypes.SEND_MESSAGE_SUCCESS:
             return "";
         default:
             return state;
@@ -17,12 +16,8 @@ const currentConversationText = (state='', action) => {
     switch(action.type) {
         case ActionTypes.CHANGE_CONVERSATION_TEXT:
             return action.text;
-        case ActionTypes.ADD_CONVERSATION:
-            if (action.status === ActionStatus.FINISHED) {
-                return "";
-            } else {
-                return state;
-            }
+        case ActionTypes.ADD_CONVERSATION_SUCCESS:
+            return "";
         default:
             return state;
     }

@@ -1,15 +1,10 @@
 import ActionTypes from '../../actions/actionTypes';
-import ActionStatus from '../../actions/actionStatus';
 import updateBranches from './branches.js';
 
 const updateConversationId = (stateId="", action) => {
     switch(action.type) {
-        case ActionTypes.ADD_CONVERSATION:
-            if (action.status === ActionStatus.FINISHED) {
-                return action.conversationName;
-            } else {
-                return stateId;
-            }
+        case ActionTypes.ADD_CONVERSATION_SUCCESS:
+            return action.conversationName;
         default:
             return stateId;
     }
@@ -17,15 +12,11 @@ const updateConversationId = (stateId="", action) => {
 
 const updateConversationParticipants = (stateParticipants=[], action, currentUserInfo) => {
     switch(action.type) {
-        case ActionTypes.ADD_CONVERSATION:
-            if (action.status === ActionStatus.FINISHED) {
-                return [
-                    ...stateParticipants,
-                    currentUserInfo.name
-                ];
-            } else {
-                return stateParticipants;
-            }
+        case ActionTypes.ADD_CONVERSATION_SUCCESS:
+            return [
+                ...stateParticipants,
+                currentUserInfo.name
+            ];
         default:
             return stateParticipants;
     }
@@ -33,15 +24,11 @@ const updateConversationParticipants = (stateParticipants=[], action, currentUse
 
 const updateAllIds = (state=[], action) => {
     switch(action.type) {
-        case ActionTypes.ADD_CONVERSATION:
-            if (action.status === ActionStatus.FINISHED) {
-                return [
-                    ...state,
-                    action.conversationName,
-                ];
-            } else {
-                return state;
-            }
+        case ActionTypes.ADD_CONVERSATION_SUCCESS:
+            return [
+                ...state,
+                action.conversationName,
+            ];
         default:
             return state;
     }
@@ -64,16 +51,12 @@ const conversation = (state=
 
 const updateById = (state, action, currentUserInfo) => {
     switch(action.type) {
-        case ActionTypes.ADD_CONVERSATION:
-            if (action.status === ActionStatus.FINISHED) {
-                return {
-                    ...state,
-                    [action.conversationName]: conversation(undefined, action, currentUserInfo) 
-                }
-            } else {
-                return state;
+        case ActionTypes.ADD_CONVERSATION_SUCCESS:
+            return {
+                ...state,
+                [action.conversationName]: conversation(undefined, action, currentUserInfo) 
             }
-        case ActionTypes.SEND_MESSAGE:
+        case ActionTypes.SEND_MESSAGE_SUCCESS:
             let conversationName = currentUserInfo.currentConversation;
             return {
                 ...state,

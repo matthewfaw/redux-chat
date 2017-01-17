@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { loadConversation } from '../actions/actions';
+import { requestLoadConversation } from '../actions/actions';
 import ConversationPreviewList from '../components/ConversationPreviewList';
 import { push } from 'react-router-redux';
 import { browserHistory } from 'react-router';
@@ -15,7 +15,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     onConversationClicked: (conversationId) => {
-        dispatch(loadConversation(conversationId));
+        dispatch(requestLoadConversation(conversationId));
         dispatch(push(`/${conversationId}`));
         //browserHistory.push(`/${conversationId}`)
     }
