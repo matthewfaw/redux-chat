@@ -1,5 +1,4 @@
 import ActionTypes from '../../actions/actionTypes'
-import { browserHistory } from 'react-router';
 
 const updateName = (state="Matthew", action) => {
     switch(action.type) {
@@ -11,11 +10,9 @@ const updateName = (state="Matthew", action) => {
 const updateCurrentConversation = (state="", action) => {
     switch(action.type) {
         case ActionTypes.LOAD_CONVERSATION_REQUEST:
-            //browserHistory.push(`/${action.id}`)
             return action.id
         case ActionTypes.ADD_CONVERSATION_SUCCESS:
             if (state === "") {
-                //browserHistory.push(`/${action.conversationName}`)
                 return action.conversationName;
             } else {
                 return state;
