@@ -1,7 +1,6 @@
 import currentUserInfo from './user/currentUserInfo';
 import conversations from './conversations/conversations';
 import gui from './gui/gui';
-import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
 
 //const rootReducer = combineReducers({
