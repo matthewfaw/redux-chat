@@ -7,8 +7,8 @@ node_modules
 coverage
 
 # production
-build
-production_server
+#build
+#production_server
 
 #vim
 *.swp
