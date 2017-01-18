@@ -1,5 +1,5 @@
 import ActionTypes from '../actions/actionTypes';
-//import { requestSendMessage } from '../actions/asyncActions';
+import { succeedAddMessage } from '../actions/actions';
 import io from 'socket.io-client';
 import { SERVER_URL } from '../utils/defaults';
 
@@ -20,7 +20,7 @@ export default function(store) {
     socket = io.connect(`${SERVER_URL}`);
 
     socket.on('message', action => {
-        //store.dispatch(requestSendMessage(action.message, action.sender))
         console.log('message detected: ', action.message)
+        store.dispatch(succeedAddMessage(action.message, action.sender))
     })
 }
