@@ -4,11 +4,13 @@ import path from 'path';
 import bodyParser from 'body-parser';
 import socketIOConnector from './socket_io_connector';
 
-import { User, Conversation } from './mongo_connector';
+//import { User, Conversation } from './mongo_connector';
 
 const app = express();
 const server = http.Server(app);
 const PORT = 3000;
+
+app.set('port', process.env.PORT || PORT);
 
 app.use(express.static(path.resolve(__dirname, '..', 'build')));
 app.use(bodyParser.json());
@@ -54,6 +56,6 @@ app.route('/conversations')
         res.end();
     })
 
-server.listen(PORT, function () {
-  console.log(`Example app listening on port ${PORT}!`)
+server.listen(app.get('port'), function () {
+  console.log(`Example app listening on port ${app.get('port')}!`)
 })

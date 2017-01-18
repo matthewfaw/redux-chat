@@ -1,7 +1,7 @@
 import ActionTypes from '../actions/actionTypes';
 import { succeedAddMessage } from '../actions/actions';
 import io from 'socket.io-client';
-import { SERVER_URL } from '../utils/defaults';
+//import { SERVER_URL } from '../utils/defaults';
 
 var socket = null;
 
@@ -17,7 +17,7 @@ export const chatMiddleware = store => next => action => {
 };
 
 export default function(store) {
-    socket = io.connect(`${SERVER_URL}`);
+    socket = io.connect();
 
     socket.on('message', action => {
         console.log('message detected: ', action.message)
