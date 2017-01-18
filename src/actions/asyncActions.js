@@ -1,6 +1,6 @@
 import { requestSubmitTerminalInputText, succeedSubmitTerminalInputText, requestAddConversation, succeedAddConversation, requestAddMessage, succeedAddMessage } from './actions';
 import fetch from 'isomorphic-fetch'
-import { SERVER_URL } from '../utils/defaults';
+//import { SERVER_URL } from '../utils/defaults';
 
 export const fetchSongs = (artist) => {
     return dispatch => {
@@ -10,7 +10,7 @@ export const fetchSongs = (artist) => {
             .then(response => response.json())
             .then(json => json.artists.items.map(artist => artist.name))
             .then(json => dispatch(succeedSubmitTerminalInputText(artist, json)))
-            .then(fetch(`${SERVER_URL}/list`, {
+            .then(fetch(`/list`, {
                 headers: {
                     'Accept':'text/plain',
                     'Content-Type': 'application/json',
@@ -27,7 +27,7 @@ export const fetchSongs = (artist) => {
 export const requestCreateConversation = (name, creatorId) => {
     return dispatch => {
         dispatch(requestAddConversation(name));
-        return fetch(`${SERVER_URL}/conversations`, {
+        return fetch(`/conversations`, {
             headers: {
                 'Accept': 'text/plain',
                 'Content-Type': 'application/json',

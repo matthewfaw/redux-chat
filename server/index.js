@@ -10,6 +10,8 @@ const app = express();
 const server = http.Server(app);
 const PORT = 3000;
 
+app.set('port', process.env.PORT || PORT);
+
 app.use(express.static(path.resolve(__dirname, '..', 'build')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -54,6 +56,6 @@ app.route('/conversations')
         res.end();
     })
 
-server.listen(PORT, function () {
-  console.log(`Example app listening on port ${PORT}!`)
+server.listen(app.get('port'), function () {
+  console.log(`Example app listening on port ${app.get('port')}!`)
 })
