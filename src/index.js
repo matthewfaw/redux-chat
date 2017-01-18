@@ -8,12 +8,15 @@ import rootReducer from './reducers/root.js';
 //import devToolsEnhancer from 'remote-redux-devtools';
 import App from './components/App';
 import { syncHistoryWithStore, routerMiddleware } from 'react-router-redux'
+import startChat, { chatMiddleware } from './custom_middleware/chat';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const middleware = routerMiddleware(browserHistory)
-let store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk, middleware)));
+const navMiddleware = routerMiddleware(browserHistory)
+let store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk, navMiddleware, chatMiddleware)));
 
 const history = syncHistoryWithStore(browserHistory, store);
+
+startChat(store);
 
 render(
     <Provider store={store}>

@@ -1,15 +1,20 @@
+import http from 'http';
 import express from 'express';
 import path from 'path';
 import bodyParser from 'body-parser';
+import socketIOConnector from './socket_io_connector';
 
 import { User, Conversation } from './mongo_connector';
 
 const app = express();
+const server = http.Server(app);
 const PORT = 3000;
 
 app.use(express.static(path.resolve(__dirname, '..', 'build')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+socketIOConnector(server);
 
 app.all('/*', function(req,res,next) {
     res.header("Access-Control-Allow-Origin","*");
@@ -49,6 +54,6 @@ app.route('/conversations')
         res.end();
     })
 
-app.listen(PORT, function () {
+server.listen(PORT, function () {
   console.log(`Example app listening on port ${PORT}!`)
 })
