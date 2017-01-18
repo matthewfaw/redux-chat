@@ -4,7 +4,7 @@ import path from 'path';
 import bodyParser from 'body-parser';
 import socketIOConnector from './socket_io_connector';
 
-import { User, Conversation } from './mongo_connector';
+//import { User, Conversation } from './mongo_connector';
 
 const app = express();
 const server = http.Server(app);
