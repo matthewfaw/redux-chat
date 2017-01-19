@@ -1,3 +1,6 @@
+/**
+ * @deprecated
+ */
 const ActionStatus = {
     REQUESTING: 'SENDING',
     ERROR: 'ERROR',

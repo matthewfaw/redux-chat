@@ -1,15 +1,9 @@
 import ActionTypes from '../../actions/actionTypes';
-import ActionStatus from '../../actions/actionStatus';
 
-const output = (state="", action) => {
+const output = (state=[], action) => {
     switch(action.type) {
-        case ActionTypes.SUBMIT_TERMINAL_INPUT_TEXT:
-            //TODO: Evaluate here?
-            if (action.status === ActionStatus.FINISHED) {
-                return action.response;
-            } else {
-                return state;
-            }
+        case ActionTypes.SUBMIT_TERMINAL_INPUT_TEXT_SUCCESS:
+            return action.response;
         default:
             return state;
     }
@@ -17,7 +11,7 @@ const output = (state="", action) => {
 
 const input = (state="", action) => {
     switch(action.type) {
-        case ActionTypes.SUBMIT_TERMINAL_INPUT_TEXT:
+        case ActionTypes.SUBMIT_TERMINAL_INPUT_TEXT_SUCCESS:
             return action.text;
         default:
             return state;
@@ -36,15 +30,12 @@ const historyEntry = (state={
 
 const history = (state=[], action) => {
     switch(action.type) {
-        case ActionTypes.SUBMIT_TERMINAL_INPUT_TEXT:
-            if (action.status === ActionStatus.FINISHED) {
-                return [
-                    ...state,
-                    historyEntry(undefined, action),
-                ]
-            } else {
-                return state;
-            }
+        //case ActionTypes.SUBMIT_TERMINAL_INPUT_TEXT_REQUEST:
+        case ActionTypes.SUBMIT_TERMINAL_INPUT_TEXT_SUCCESS:
+            return [
+                ...state,
+                historyEntry(undefined, action),
+            ]
         default:
             return state;
     
@@ -56,12 +47,8 @@ const currentInputText = (state="", action) => {
     switch(action.type) {
         case ActionTypes.CHANGE_TERMINAL_INPUT_TEXT:
             return action.text;
-        case ActionTypes.SUBMIT_TERMINAL_INPUT_TEXT:
-            if (action.status === ActionStatus.FINISHED) {
-                return "";
-            } else {
-                return state;
-            }
+        case ActionTypes.SUBMIT_TERMINAL_INPUT_TEXT_SUCCESS:
+            return "";
         default:
             return state;
     }

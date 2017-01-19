@@ -1,15 +1,22 @@
+import http from 'http';
 import express from 'express';
 import path from 'path';
 import bodyParser from 'body-parser';
+import socketIOConnector from './socket_io_connector';
 
-import { User, Conversation } from './mongo_connector';
+//import { User, Conversation } from './mongo_connector';
 
 const app = express();
+const server = http.Server(app);
 const PORT = 3000;
+
+app.set('port', process.env.PORT || PORT);
 
 app.use(express.static(path.resolve(__dirname, '..', 'build')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+socketIOConnector(server);
 
 app.all('/*', function(req,res,next) {
     res.header("Access-Control-Allow-Origin","*");
@@ -32,23 +39,23 @@ app.post('/list', (req, res) => {
 app.route('/conversations')
     .post((req, res) => {
         console.log(req.body);
-        let newConversation = new Conversation({ name: req.body.name });
-        newConversation.save((err) => {
-            User.findOne({ name: req.body.creatorId }, (err, user) => {
-                console.log(user.name);
-                user.conversations.push(newConversation._id);
-                user.markModified('conversations');
-                console.log(user);
-                user.save();
-                newConversation.participants.push(user._id);
-                newConversation.markModified('participants');
-                console.log(newConversation);
-                newConversation.save();
-            })
-        })
+        //let newConversation = new Conversation({ name: req.body.name });
+        //newConversation.save((err) => {
+            //User.findOne({ name: req.body.creatorId }, (err, user) => {
+                //console.log(user.name);
+                //user.conversations.push(newConversation._id);
+                //user.markModified('conversations');
+                //console.log(user);
+                //user.save();
+                //newConversation.participants.push(user._id);
+                //newConversation.markModified('participants');
+                //console.log(newConversation);
+                //newConversation.save();
+            //})
+        //})
         res.end();
     })
 
-app.listen(PORT, function () {
-  console.log(`Example app listening on port ${PORT}!`)
+server.listen(app.get('port'), function () {
+  console.log(`Example app listening on port ${app.get('port')}!`)
 })

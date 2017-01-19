@@ -1,17 +1,16 @@
-import { submitTerminalInputText, addConversation } from './actions';
+import { requestSubmitTerminalInputText, succeedSubmitTerminalInputText, requestAddConversation, succeedAddConversation, requestAddMessage, succeedAddMessage } from './actions';
 import fetch from 'isomorphic-fetch'
-import ActionStatus from './actionStatus';
-import { SERVER_URL } from '../utils/defaults';
+//import { SERVER_URL } from '../utils/defaults';
 
 export const fetchSongs = (artist) => {
     return dispatch => {
-        dispatch(submitTerminalInputText(artist,[], ActionStatus.REQUESTING));
+        dispatch(requestSubmitTerminalInputText(artist));
         const stripped = encodeURIComponent(artist.trim())
         return fetch(`https://api.spotify.com/v1/search?q=${stripped}&type=artist`)
             .then(response => response.json())
             .then(json => json.artists.items.map(artist => artist.name))
-            .then(json => dispatch(submitTerminalInputText(artist, json, ActionStatus.FINISHED)))
-            .then(fetch(`${SERVER_URL}/list`, {
+            .then(json => dispatch(succeedSubmitTerminalInputText(artist, json)))
+            .then(fetch(`/list`, {
                 headers: {
                     'Accept':'text/plain',
                     'Content-Type': 'application/json',
@@ -35,10 +34,10 @@ export const loadAllConversations = (userName) => {
     }
 }
 
-export const createConversation = (name, creatorId) => {
+export const requestCreateConversation = (name, creatorId) => {
     return dispatch => {
-        dispatch(addConversation(name, ActionStatus.REQUESTING));
-        return fetch(`${SERVER_URL}/conversations`, {
+        dispatch(requestAddConversation(name));
+        return fetch(`/conversations`, {
             headers: {
                 'Accept': 'text/plain',
                 'Content-Type': 'application/json',
@@ -49,6 +48,14 @@ export const createConversation = (name, creatorId) => {
                 creatorId:  creatorId,
             })
         })
-        .then(dispatch(addConversation(name, ActionStatus.FINISHED)))
+        .then(dispatch(succeedAddConversation(name)))
+    }
+}
+
+export const requestSendMessage = (message, sender) => {
+    return dispatch => {
+        dispatch(requestAddMessage(message, sender));
+        dispatch(succeedAddMessage(message, sender));
+        return Promise.resolve();
     }
 }

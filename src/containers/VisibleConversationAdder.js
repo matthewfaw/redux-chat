@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { changeConversationText } from '../actions/actions';
-import { createConversation } from '../actions/asyncActions';
+import { requestCreateConversation } from '../actions/asyncActions';
 import TextInputField from '../components/TextInputField';
 
 //XXX: This class is redundant -- combine with VisibleMessageSender.js
@@ -13,7 +13,7 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     onChangeText: (event) => dispatch(changeConversationText(event.target.value)),
-    onSubmitText: (conversationName, currentUser) => dispatch(createConversation(conversationName, currentUser.name)),
+    onSubmitText: (conversationName, currentUser) => dispatch(requestCreateConversation(conversationName, currentUser.name)),
 });
 
 const VisibleConversationAdder = connect(

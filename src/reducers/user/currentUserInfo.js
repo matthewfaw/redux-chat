@@ -1,6 +1,4 @@
 import ActionTypes from '../../actions/actionTypes'
-import ActionStatus from '../../actions/actionStatus'
-import { browserHistory } from 'react-router';
 
 const updateName = (state="Matthew", action) => {
     switch(action.type) {
@@ -11,17 +9,11 @@ const updateName = (state="Matthew", action) => {
 
 const updateCurrentConversation = (state="", action) => {
     switch(action.type) {
-        case ActionTypes.LOAD_CONVERSATION:
-            browserHistory.push(`/${action.id}`)
+        case ActionTypes.LOAD_CONVERSATION_REQUEST:
             return action.id
-        case ActionTypes.ADD_CONVERSATION:
+        case ActionTypes.ADD_CONVERSATION_SUCCESS:
             if (state === "") {
-                if (action.status === ActionStatus.FINISHED) {
-                    browserHistory.push(`/${action.conversationName}`)
-                    return action.conversationName;
-                } else {
-                    return state;
-                }
+                return action.conversationName;
             } else {
                 return state;
             }
@@ -32,13 +24,9 @@ const updateCurrentConversation = (state="", action) => {
 
 const updateCurrentBranch = (state="", action) => {
     switch(action.type) {
-        case ActionTypes.ADD_CONVERSATION:
+        case ActionTypes.ADD_CONVERSATION_SUCCESS:
             if (state === "") {
-                if (action.status === ActionStatus.FINISHED) {
-                    return action.defaultBranchName;
-                } else {
-                    return state;
-                }
+                return action.defaultBranchName;
             } else {
                 return state;
             }
@@ -49,12 +37,8 @@ const updateCurrentBranch = (state="", action) => {
 
 const updateIsSendingMessage = (state=false, action) => {
     switch(action.type) {
-        case ActionTypes.SEND_MESSAGE:
-            if (action.status === ActionStatus.REQUESTING) {
-                return true;
-            } else {
-                return false;
-            }
+        case ActionTypes.SEND_MESSAGE_REQUEST:
+            return true;
         default:
             return false;
     }
@@ -62,12 +46,8 @@ const updateIsSendingMessage = (state=false, action) => {
 
 const updateIsLoadingMessages = (state=false, action) => {
     switch(action.type) {
-        case ActionTypes.LOAD_CONVERSATION:
-            if (action.status === ActionStatus.REQUESTING) {
-                return true;
-            } else {
-                return false;
-            }
+        case ActionTypes.LOAD_CONVERSATION_REQUEST:
+            return true;
         default:
             return false;
     }

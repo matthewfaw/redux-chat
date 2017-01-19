@@ -1,16 +1,11 @@
 import ActionTypes from '../../actions/actionTypes';
-import ActionStatus from '../../actions/actionStatus';
 import updateMessages from './messages';
 
 const updateBranchId = (stateId="", action) => {
     switch(action.type) {
-        case ActionTypes.ADD_CONVERSATION:
-            if (action.status === ActionStatus.FINISHED) {
-                return action.defaultBranchName;
-            } else {
-                return stateId;
-            }
-        case ActionTypes.CREATE_BRANCH:
+        case ActionTypes.ADD_CONVERSATION_SUCCESS:
+            return action.defaultBranchName;
+        case ActionTypes.CREATE_BRANCH_SUCCESS:
             return action.branchName;
         default:
             return stateId;
@@ -31,46 +26,40 @@ const branch = (state=
 
 const updateById = (state, action, currentUserInfo) => {
     switch(action.type) {
-        case ActionTypes.ADD_CONVERSATION:
-            if (action.status === ActionStatus.FINISHED) {
-                return {
-                    [action.defaultBranchName]: branch(undefined, action),
-                }
-            } else {
-                return state;
+        case ActionTypes.ADD_CONVERSATION_SUCCESS:
+            return {
+                ...state,
+                [action.defaultBranchName]: branch(undefined, action),
             }
-        case ActionTypes.CREATE_BRANCH:
+        case ActionTypes.CREATE_BRANCH_SUCCESS:
             return {
                 ...state,
                 [action.branchName]: branch(undefined, action),
             }
-        case ActionTypes.SEND_MESSAGE:
+        case ActionTypes.SEND_MESSAGE_SUCCESS:
             let currentBranch = currentUserInfo.currentBranch;
             return {
                 ...state,
                 [currentBranch]: branch(state[currentBranch], action)
             }
         default:
-            let newState = {};
-            for (var byIdName in state) {
-                newState[byIdName] = branch(state[byIdName], action);
-            }
-            return newState;
+            return state;
+            //let newState = {};
+            //for (var byIdName in state) {
+                //newState[byIdName] = branch(state[byIdName], action);
+            //}
+            //return newState;
     }
 };
 
 const updateAllIds = (state, action) => {
     switch(action.type) {
-        case ActionTypes.ADD_CONVERSATION:
-            if (action.status === ActionStatus.FINISHED) {
-                return [
-                    ...state,
-                    action.defaultBranchName,
-                ]
-            } else {
-                return state;
-            }
-        case ActionTypes.CREATE_BRANCH:
+        case ActionTypes.ADD_CONVERSATION_SUCCESS:
+            return [
+                ...state,
+                action.defaultBranchName,
+            ]
+        case ActionTypes.CREATE_BRANCH_SUCCESS:
             return [
                 ...state,
                 action.branchName,
