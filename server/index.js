@@ -29,14 +29,19 @@ app.get('/', (req, res) => {
     res.sendFile(path.resolve(__dirname, '..', 'build', 'index.html'));
 });
 
-app.post('/list', (req, res) => {
-    console.log(req.body);
-    //let derpton = new User({ name: req.body.login });
-    //derpton.save();
-    res.end();
-});
+app.route('/list')
+    .post((req, res) => {
+        console.log(req.body);
+        //let derpton = new User({ name: req.body.login });
+        //derpton.save();
+        res.end();
+    });
 
 app.route('/conversations')
+    .get((req, res) => {
+        console.log('name: ', req.query['name'])
+        res.send({'conversations': ['derp','bledp']});
+    })
     .post((req, res) => {
         console.log(req.body);
         //let newConversation = new Conversation({ name: req.body.name });

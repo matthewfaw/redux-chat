@@ -47,14 +47,17 @@ app.get('/', function (req, res) {
     res.sendFile(_path2.default.resolve(__dirname, '..', 'build', 'index.html'));
 });
 
-app.post('/list', function (req, res) {
+app.route('/list').post(function (req, res) {
     console.log(req.body);
     //let derpton = new User({ name: req.body.login });
     //derpton.save();
     res.end();
 });
 
-app.route('/conversations').post(function (req, res) {
+app.route('/conversations').get(function (req, res) {
+    console.log('name: ', req.query['name']);
+    res.send({ 'conversations': ['derp', 'bledp'] });
+}).post(function (req, res) {
     console.log(req.body);
     //let newConversation = new Conversation({ name: req.body.name });
     //newConversation.save((err) => {

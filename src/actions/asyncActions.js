@@ -26,10 +26,10 @@ export const fetchSongs = (artist) => {
 
 export const loadAllConversations = (userName) => {
     return dispatch => {
-        return fetch(`${SERVER_URL}/${userName}/conversations/`)
-            .then(response => response.json().conversations)
-            .then(conversations => conversations.forEach( conversation => {
-                dispatch(addConversation(name, ActionStatus.FINISHED));
+        return fetch(`/conversations?name=${userName}`)
+            .then(response => response.json())
+            .then(res => res.conversations.forEach( conversation => {
+                dispatch(succeedAddConversation(conversation));
             } ))
     }
 }
