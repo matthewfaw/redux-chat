@@ -1,5 +1,7 @@
 import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
+//
+mongoose.Promise = Promise;
 mongoose.connect(process.env.MONGO_URI);
 
 const userSchema = mongoose.Schema({

@@ -4,7 +4,7 @@ import path from 'path';
 import bodyParser from 'body-parser';
 import socketIOConnector from './socket_io_connector';
 
-//import { User, Conversation } from './mongo_connector';
+import { User, Conversation } from './mongo_connector';
 
 const app = express();
 const server = http.Server(app);
@@ -47,7 +47,13 @@ app.route('/list')
 app.route('/conversations')
     .get((req, res) => {
         console.log('name: ', req.query['name'])
-        res.send({'conversations': ['derp','bledp']});
+        User.findOne({ name: req.query['name'] })
+            .populate('conversations')
+            .exec((err, user) => {
+                if (err) res.end();
+                console.log(user.name);
+                res.send({'conversations': user.conversations.map(conv => conv.name)});
+            })
     })
     .post((req, res) => {
         console.log(req.body);
