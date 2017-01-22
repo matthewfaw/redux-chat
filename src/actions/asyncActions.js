@@ -64,17 +64,18 @@ export const requestCreateConversation = (name, creatorId) => {
 export const requestSendMessage = (message, creatorId) => {
     return dispatch => {
         dispatch(requestAddMessage(message, creatorId));
-        return fetch('/messages', {
-            headers: {
-                'Accept': 'text/plain',
-                'Content-Type': 'application/json',
-            },
-            method: 'post',
-            body: JSON.stringify({
-                creatorId:  creatorId,
-                body: message,
-            })
-        }).then(res => res.json())
-            .then(message => dispatch(succeedAddMessage(message)))
+        return Promise.resolve();
+        //return fetch('/messages', {
+            //headers: {
+                //'Accept': 'text/plain',
+                //'Content-Type': 'application/json',
+            //},
+            //method: 'post',
+            //body: JSON.stringify({
+                //creatorId:  creatorId,
+                //body: message,
+            //})
+        //}).then(res => res.json())
+            //.then(message => dispatch(succeedAddMessage(message)))
     }
 }

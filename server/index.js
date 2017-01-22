@@ -3,6 +3,7 @@ import express from 'express';
 import path from 'path';
 import bodyParser from 'body-parser';
 import socketIOConnector from './socket_io_connector';
+import io from 'socket.io';
 
 import { User, Branch, Conversation, Message } from './mongo_connector';
 
@@ -19,7 +20,8 @@ if (process.env.NODE_ENV === 'production') {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-socketIOConnector(server);
+let socketServer = io(server)
+socketIOConnector(socketServer);
 
 app.all('/*', function(req,res,next) {
     res.header("Access-Control-Allow-Origin","*");
@@ -68,34 +70,35 @@ app.route('/messages')
                 //res.send({'conversations': user.conversations.map(conv => conv.name)});
             })
     })
-    .post((req, res) => {
-        console.log(req.body);
-        let newMessage = new Message({ 
-            body: req.body.body,
-        })
-        User.findOne({ name: req.body.creatorId.name })
-            .exec((err, user) => {
-                console.log(user.name)
-                newMessage.sender = user._id;
-                Branch.findOne({ name: req.body.creatorId.currentBranch })
-                    .exec( (err, branch) => {
-                        console.log(branch.name)
-                        branch.messages.push(newMessage._id);
-                        branch.markModified('messages');
-                        branch.save();
-                        newMessage.branch = branch._id;
-                        newMessage.save();
+    //.post((req, res) => {
+        //console.log(req.body);
+        //let newMessage = new Message({ 
+            //body: req.body.body,
+        //})
+        //User.findOne({ name: req.body.creatorId.name })
+            //.exec((err, user) => {
+                //console.log(user.name)
+                //newMessage.sender = user._id;
+                //Branch.findOne({ name: req.body.creatorId.currentBranch })
+                    //.exec( (err, branch) => {
+                        //console.log(branch.name)
+                        //branch.messages.push(newMessage._id);
+                        //branch.markModified('messages');
+                        //branch.save();
+                        //newMessage.branch = branch._id;
+                        //newMessage.save();
 
-                        let messageResponse = {
-                            body: newMessage.body,
-                            sender: { name: user.name },
-                            time: newMessage.time,
-                        }
-                        console.log(messageResponse);
-                        res.send(messageResponse);
-                    } )
-            })
-    })
+                        //let messageResponse = {
+                            //body: newMessage.body,
+                            //sender: { name: user.name },
+                            //time: newMessage.time,
+                        //}
+                        //console.log(messageResponse);
+                        //socektServer.emit('message', messageResponse);
+                        //res.send(messageResponse);
+                    //} )
+            //})
+    //})
 app.route('/conversations')
     .get((req, res) => {
         console.log('name: ', req.query['name'])

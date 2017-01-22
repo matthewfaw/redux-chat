@@ -19,8 +19,8 @@ export const chatMiddleware = store => next => action => {
 export default function(store) {
     socket = io.connect();
 
-    socket.on('message', action => {
-        console.log('message detected: ', action.message)
-        store.dispatch(succeedAddMessage(action.message, action.sender))
+    socket.on('message', message => {
+        console.log('message detected: ', message)
+        store.dispatch(succeedAddMessage(message))
     })
 }
