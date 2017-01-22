@@ -9,6 +9,7 @@ coverage
 # production
 #build
 #production_server
+public/js
 
 #vim
 *.swp

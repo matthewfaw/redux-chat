@@ -11,8 +11,11 @@ const server = http.Server(app);
 const PORT = 3000;
 
 app.set('port', process.env.PORT || PORT);
-
-app.use(express.static(path.resolve(__dirname, '..', 'build')));
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.resolve(__dirname, '..', 'build')));
+} else {
+    app.use(express.static(path.resolve(__dirname, '..', 'public/js')));
+}
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -26,7 +29,11 @@ app.all('/*', function(req,res,next) {
 });
 
 app.get('/', (req, res) => {
-    res.sendFile(path.resolve(__dirname, '..', 'build', 'index.html'));
+    if (process.env.NODE_ENV === 'production') {
+        res.sendFile(path.resolve(__dirname, '..', 'build', 'index.html'));
+    } else {
+        res.sendFile(path.resolve(__dirname, '..', 'public', 'index.dev.html'));
+    }
 });
 
 app.route('/list')
