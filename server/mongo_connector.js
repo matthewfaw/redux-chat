@@ -23,6 +23,7 @@ const branchSchema = mongoose.Schema({
 
 const messageSchema = mongoose.Schema({
     sender: { type: Schema.Types.ObjectId, ref: 'User' },
+    branch: { type: Schema.Types.ObjectId, ref: 'Branch' },
     seenBy: [{ type: Schema.Types.ObjectId, ref: 'User' }],
     time: { type: Date, default: Date.now },
     body: String,

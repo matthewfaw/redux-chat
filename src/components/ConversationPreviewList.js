@@ -22,7 +22,7 @@ class ConversationPreviewList extends React.Component {
                     <ConversationPreview 
                         key={counter++}
                         title={conversation}
-                        onClick={() => this.props.onConversationClicked(conversation)}
+                        onClick={() => this.props.onConversationClicked(this.props.currentUser, conversation)}
                     />
                 )}
             </ListGroup>

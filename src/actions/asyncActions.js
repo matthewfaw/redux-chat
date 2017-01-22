@@ -33,6 +33,15 @@ export const loadAllConversations = (userName) => {
             } ))
     }
 }
+export const loadAllMessages = (userName, conversationId, branchId) => {
+    return dispatch => {
+        return fetch(`/messages?name=${userName}&conversation=${conversationId}&branch=${branchId}`)
+            .then(response => response.json())
+            .then(res => res.messages.forEach( message => {
+                dispatch(succeedAddMessage(message));
+            }))
+    }
+}
 
 export const requestCreateConversation = (name, creatorId) => {
     return dispatch => {
@@ -52,10 +61,20 @@ export const requestCreateConversation = (name, creatorId) => {
     }
 }
 
-export const requestSendMessage = (message, sender) => {
+export const requestSendMessage = (message, creatorId) => {
     return dispatch => {
-        dispatch(requestAddMessage(message, sender));
-        dispatch(succeedAddMessage(message, sender));
-        return Promise.resolve();
+        dispatch(requestAddMessage(message, creatorId));
+        return fetch('/messages', {
+            headers: {
+                'Accept': 'text/plain',
+                'Content-Type': 'application/json',
+            },
+            method: 'post',
+            body: JSON.stringify({
+                creatorId:  creatorId,
+                body: message,
+            })
+        }).then(res => res.json())
+            .then(message => dispatch(succeedAddMessage(message)))
     }
 }

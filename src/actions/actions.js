@@ -37,11 +37,11 @@ export const failAddMessage = (message, sender, error) => ({
     message: message,
     error: error,
 });
-export const succeedAddMessage = (message, sender) => ({
+export const succeedAddMessage = (message) => ({
     type: ActionTypes.SEND_MESSAGE_SUCCESS,
-    sender: sender,
-    time: Date.now(),
-    message: message,
+    sender: message.sender,
+    time: message.time,
+    message: message.body,
 });
 
 export const requestAddParticipant = (participantId) => ({

@@ -4,7 +4,7 @@ import path from 'path';
 import bodyParser from 'body-parser';
 import socketIOConnector from './socket_io_connector';
 
-import { User, Conversation } from './mongo_connector';
+import { User, Branch, Conversation, Message } from './mongo_connector';
 
 const app = express();
 const server = http.Server(app);
@@ -44,6 +44,58 @@ app.route('/list')
         res.end();
     });
 
+app.route('/messages')
+    .get((req, res) => {
+        console.log(req.query)
+        User.findOne({ name: req.query['name'] })
+            .populate({
+                path: 'conversations',
+                match: { name: req.query['conversation'] },
+                populate: { 
+                    path: 'branches',
+                    match: { name: req.query['branch'] },
+                    populate: { 
+                        path: 'messages',
+                        populate: {
+                            path: 'sender',
+                        }
+                    }
+                },
+            })
+            .exec((err, user) => {
+                if (err) res.end();
+                res.send({'messages': user.conversations[0].branches[0].messages});
+                //res.send({'conversations': user.conversations.map(conv => conv.name)});
+            })
+    })
+    .post((req, res) => {
+        console.log(req.body);
+        let newMessage = new Message({ 
+            body: req.body.body,
+        })
+        User.findOne({ name: req.body.creatorId.name })
+            .exec((err, user) => {
+                console.log(user.name)
+                newMessage.sender = user._id;
+                Branch.findOne({ name: req.body.creatorId.currentBranch })
+                    .exec( (err, branch) => {
+                        console.log(branch.name)
+                        branch.messages.push(newMessage._id);
+                        branch.markModified('messages');
+                        branch.save();
+                        newMessage.branch = branch._id;
+                        newMessage.save();
+
+                        let messageResponse = {
+                            body: newMessage.body,
+                            sender: { name: user.name },
+                            time: newMessage.time,
+                        }
+                        console.log(messageResponse);
+                        res.send(messageResponse);
+                    } )
+            })
+    })
 app.route('/conversations')
     .get((req, res) => {
         console.log('name: ', req.query['name'])
