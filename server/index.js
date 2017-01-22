@@ -57,20 +57,20 @@ app.route('/conversations')
     })
     .post((req, res) => {
         console.log(req.body);
-        //let newConversation = new Conversation({ name: req.body.name });
-        //newConversation.save((err) => {
-            //User.findOne({ name: req.body.creatorId }, (err, user) => {
-                //console.log(user.name);
-                //user.conversations.push(newConversation._id);
-                //user.markModified('conversations');
-                //console.log(user);
-                //user.save();
-                //newConversation.participants.push(user._id);
-                //newConversation.markModified('participants');
-                //console.log(newConversation);
-                //newConversation.save();
-            //})
-        //})
+        let newConversation = new Conversation({ name: req.body.name });
+        newConversation.save((err) => {
+            User.findOne({ name: req.body.creatorId }, (err, user) => {
+                console.log(user.name);
+                user.conversations.push(newConversation._id);
+                user.markModified('conversations');
+                console.log(user);
+                user.save();
+                newConversation.participants.push(user._id);
+                newConversation.markModified('participants');
+                console.log(newConversation);
+                newConversation.save();
+            })
+        })
         res.end();
     })
 
