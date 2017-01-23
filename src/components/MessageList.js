@@ -22,12 +22,8 @@ MessageList.propTypes = {
     messages: PropTypes.arrayOf(PropTypes.shape({
         sender: PropTypes.shape({
             name: PropTypes.string.isRequired,
-            currentConversation: PropTypes.string.isRequired,
-            currentBranch: PropTypes.string.isRequired,
-            isSendingMessage: PropTypes.bool.isRequired,
-            isLoadingMessages: PropTypes.bool.isRequired,
         }).isRequired,
-        time: PropTypes.number.isRequired,
+        time: PropTypes.string.isRequired,
         body: PropTypes.string.isRequired,
     }).isRequired).isRequired,
 };

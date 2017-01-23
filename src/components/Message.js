@@ -7,7 +7,7 @@ const Message = ({ sender, time, body }) => (
 
 Message.propTypes = {
     sender: PropTypes.string.isRequired,
-    time: PropTypes.number.isRequired,
+    time: PropTypes.string.isRequired,
     body: PropTypes.string.isRequired,
 }
 

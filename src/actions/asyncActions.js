@@ -1,5 +1,6 @@
-import { requestSubmitTerminalInputText, succeedSubmitTerminalInputText, requestAddConversation, succeedAddConversation, requestAddMessage, succeedAddMessage } from './actions';
+import { requestSubmitTerminalInputText, succeedSubmitTerminalInputText, requestAddConversation, succeedAddConversation, requestAddMessage, succeedAddMessage, succeedLoadConversation, requestLoadConversation } from './actions';
 import fetch from 'isomorphic-fetch'
+import { Defaults } from '../utils/defaults';
 //import { SERVER_URL } from '../utils/defaults';
 
 export const fetchSongs = (artist) => {
@@ -24,6 +25,27 @@ export const fetchSongs = (artist) => {
     };
 }
 
+export const loadAllConversations = (userName) => {
+    return dispatch => {
+        return fetch(`/conversations?name=${userName}`)
+            .then(response => response.json())
+            .then(res => res.conversations.forEach( conversation => {
+                dispatch(succeedAddConversation(conversation));
+            } ))
+    }
+}
+export const loadAllMessages = (user, conversationId, branchId) => {
+    return dispatch => {
+        dispatch(requestLoadConversation(conversationId))
+        return fetch(`/messages?name=${user.name}&conversation=${conversationId}&branch=${branchId}`)
+            .then(response => response.json())
+            .then(res => res.messages.forEach( message => {
+                dispatch(succeedAddMessage(message));
+            }))
+            .then(dispatch(succeedLoadConversation(conversationId)))
+    }
+}
+
 export const requestCreateConversation = (name, creatorId) => {
     return dispatch => {
         dispatch(requestAddConversation(name));
@@ -35,6 +57,7 @@ export const requestCreateConversation = (name, creatorId) => {
             method: 'post',
             body: JSON.stringify({
                 name: name,
+                defaultBranchName: Defaults.defaultBranchName, 
                 creatorId:  creatorId,
             })
         })
@@ -42,10 +65,21 @@ export const requestCreateConversation = (name, creatorId) => {
     }
 }
 
-export const requestSendMessage = (message, sender) => {
+export const requestSendMessage = (message, creatorId) => {
     return dispatch => {
-        dispatch(requestAddMessage(message, sender));
-        dispatch(succeedAddMessage(message, sender));
+        dispatch(requestAddMessage(message, creatorId));
         return Promise.resolve();
+        //return fetch('/messages', {
+            //headers: {
+                //'Accept': 'text/plain',
+                //'Content-Type': 'application/json',
+            //},
+            //method: 'post',
+            //body: JSON.stringify({
+                //creatorId:  creatorId,
+                //body: message,
+            //})
+        //}).then(res => res.json())
+            //.then(message => dispatch(succeedAddMessage(message)))
     }
 }

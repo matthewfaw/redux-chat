@@ -1,7 +1,8 @@
 import { connect } from 'react-redux';
-import { requestLoadConversation } from '../actions/actions';
+import { loadAllMessages, loadAllConversations } from '../actions/asyncActions';
 import ConversationPreviewList from '../components/ConversationPreviewList';
 import { push } from 'react-router-redux';
+import { Defaults } from '../utils/defaults';
 
 const getVisibleConversation = (userInfo, conversations) => {
     return conversations.allIds;
@@ -13,8 +14,9 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    onConversationClicked: (conversationId) => {
-        dispatch(requestLoadConversation(conversationId));
+    onComponentMounted: (currentUser) => dispatch(loadAllConversations(currentUser.name, Defaults.defaultBranchName)),
+    onConversationClicked: (currentUser, conversationId) => {
+        dispatch(loadAllMessages(currentUser, conversationId, Defaults.defaultBranchName));
         dispatch(push(`/${conversationId}`));
     }
 });

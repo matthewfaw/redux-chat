@@ -9,7 +9,7 @@ const updateName = (state="Matthew", action) => {
 
 const updateCurrentConversation = (state="", action) => {
     switch(action.type) {
-        case ActionTypes.LOAD_CONVERSATION_REQUEST:
+        case ActionTypes.LOAD_CONVERSATION_SUCCESS:
             return action.id
         case ActionTypes.ADD_CONVERSATION_SUCCESS:
             if (state === "") {

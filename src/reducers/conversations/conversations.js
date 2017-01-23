@@ -57,7 +57,13 @@ const updateById = (state, action, currentUserInfo) => {
                 [action.conversationName]: conversation(undefined, action, currentUserInfo) 
             }
         case ActionTypes.SEND_MESSAGE_SUCCESS:
-            let conversationName = currentUserInfo.currentConversation;
+            var conversationName = currentUserInfo.currentConversation;
+            return {
+                ...state,
+                [conversationName]: conversation(state[conversationName], action, currentUserInfo) 
+            }
+        case ActionTypes.LOAD_CONVERSATION_REQUEST:
+            var conversationName = action.id;
             return {
                 ...state,
                 [conversationName]: conversation(state[conversationName], action, currentUserInfo) 

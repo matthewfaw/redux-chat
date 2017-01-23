@@ -1,17 +1,21 @@
 import ActionTypes from './actionTypes';
+import { Defaults } from '../utils/defaults';
 
 export const requestLoadConversation = (conversationId) => ({
     type: ActionTypes.LOAD_CONVERSATION_REQUEST,
     id: conversationId,
+    defaultBranchName: Defaults.defaultBranchName,
 });
 export const failLoadConversation = (conversationId, error) => ({
     type: ActionTypes.LOAD_CONVERSATION_FAIL,
     id: conversationId,
+    defaultBranchName: Defaults.defaultBranchName,
     error: error
 });
 export const succeedLoadConversation = (conversationId) => ({
     type: ActionTypes.LOAD_CONVERSATION_SUCCESS,
     id: conversationId,
+    defaultBranchName: Defaults.defaultBranchName,
 });
 
 export const changeMessageText = (newText) => ({
@@ -37,11 +41,11 @@ export const failAddMessage = (message, sender, error) => ({
     message: message,
     error: error,
 });
-export const succeedAddMessage = (message, sender) => ({
+export const succeedAddMessage = (message) => ({
     type: ActionTypes.SEND_MESSAGE_SUCCESS,
-    sender: sender,
-    time: Date.now(),
-    message: message,
+    sender: message.sender,
+    time: message.time,
+    message: message.body,
 });
 
 export const requestAddParticipant = (participantId) => ({
@@ -123,18 +127,18 @@ export const succeedDeleteBranch = (branchName) => ({
 export const requestAddConversation = (conversationName) => ({
     type: ActionTypes.ADD_CONVERSATION_REQUEST,
     conversationName: conversationName,
-    defaultBranchName: "DEFAULT",
+    defaultBranchName: Defaults.defaultBranchName,
 });
 export const failAddConversation = (conversationName, error) => ({
     type: ActionTypes.ADD_CONVERSATION_FAIL,
     conversationName: conversationName,
-    defaultBranchName: "DEFAULT",
+    defaultBranchName: Defaults.defaultBranchName,
     error: error,
 });
 export const succeedAddConversation = (conversationName) => ({
     type: ActionTypes.ADD_CONVERSATION_SUCCESS,
     conversationName: conversationName,
-    defaultBranchName: "DEFAULT",
+    defaultBranchName: Defaults.defaultBranchName,
 });
 
 export const requestCheckoutConversation = (conversationName) => ({

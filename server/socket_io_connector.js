@@ -1,20 +1,24 @@
 import io from 'socket.io';
+import { saveMessage } from './db/mongo_connector';
 
-const connect = (server) => {
-    const socketServer = io(server);
-    const connections = [];
+const emitter = (connections) => (messageResponse) => {
+    connections.forEach( connectedSocket => {
+        connectedSocket.emit('message', messageResponse);
+    });
+}
+
+
+export const connectIO = (server) => {
+    let socketServer = io(server)
+    let connections = [];
 
     socketServer.on('connection', socket => {
         console.log('connected');
         connections.push(socket);
 
-        socket.on('message', data => {
-            connections.forEach( connectedSocket => {
-                if (connectedSocket !== socket) {
-                    console.log('emitting message', data.message)
-                    connectedSocket.emit('message', data);
-                }
-            });
+        socket.on('message', action => {
+            console.log('MESSAGE')
+            saveMessage(action, emitter(connections))
         });
 
         socket.on('disconnect', () => {
@@ -24,5 +28,3 @@ const connect = (server) => {
         });
     });
 }
-
-export default connect;

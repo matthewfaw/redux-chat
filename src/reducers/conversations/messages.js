@@ -21,6 +21,8 @@ const message = (state=
 
 const messages = (state=[], action) => {
     switch(action.type) {
+        case ActionTypes.LOAD_CONVERSATION_REQUEST:
+            return [];
         case ActionTypes.SEND_MESSAGE_SUCCESS:
             return [
                 ...state,
