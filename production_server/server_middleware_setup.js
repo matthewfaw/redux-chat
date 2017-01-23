@@ -23,7 +23,7 @@ var connectMiddleware = exports.connectMiddleware = function connectMiddleware(a
     if (process.env.NODE_ENV === 'production') {
         app.use(_express2.default.static(_path2.default.resolve(__dirname, '..', 'build')));
     } else {
-        app.use(_express2.default.static(_path2.default.resolve(__dirname, '..', 'public/js')));
+        app.use(_express2.default.static(_path2.default.resolve(__dirname, '..', 'public-dev/js')));
     }
     app.use(_bodyParser2.default.json());
     app.use(_bodyParser2.default.urlencoded({ extended: false }));

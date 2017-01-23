@@ -18,7 +18,7 @@ var route = exports.route = function route(app) {
         if (process.env.NODE_ENV === 'production') {
             res.sendFile(_path2.default.resolve(__dirname, '..', 'build', 'index.html'));
         } else {
-            res.sendFile(_path2.default.resolve(__dirname, '..', 'public', 'index.dev.html'));
+            res.sendFile(_path2.default.resolve(__dirname, '..', 'public-dev', 'index.dev.html'));
         }
     });
 
