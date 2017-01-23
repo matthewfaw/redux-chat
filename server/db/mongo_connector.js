@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import { User, Conversation, Branch, Message } from './models.js';
 
 mongoose.Promise = Promise;
-mongoose.connect(process.env.MONGO_URI);
+mongoose.connect(process.env.MONGODB_URI);
 
 export const saveMessage = (action, emitter) => {
     let newMessage = new Message({ 
