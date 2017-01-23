@@ -1,4 +1,4 @@
-import { requestSubmitTerminalInputText, succeedSubmitTerminalInputText, requestAddConversation, succeedAddConversation, requestAddMessage, succeedAddMessage } from './actions';
+import { requestSubmitTerminalInputText, succeedSubmitTerminalInputText, requestAddConversation, succeedAddConversation, requestAddMessage, succeedAddMessage, succeedLoadConversation, requestLoadConversation } from './actions';
 import fetch from 'isomorphic-fetch'
 //import { SERVER_URL } from '../utils/defaults';
 
@@ -35,11 +35,13 @@ export const loadAllConversations = (userName) => {
 }
 export const loadAllMessages = (userName, conversationId, branchId) => {
     return dispatch => {
+        dispatch(requestLoadConversation(conversationId));
         return fetch(`/messages?name=${userName}&conversation=${conversationId}&branch=${branchId}`)
             .then(response => response.json())
             .then(res => res.messages.forEach( message => {
                 dispatch(succeedAddMessage(message));
             }))
+            .then(dispatch(succeedLoadConversation(conversationId)))
     }
 }
 

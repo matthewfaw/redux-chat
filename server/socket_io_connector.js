@@ -1,4 +1,4 @@
-import { User, Branch, Message } from './mongo_connector';
+import { User, Conversation, Branch, Message } from './mongo_connector';
 const connect = (socketServer) => {
     const connections = [];
 
@@ -15,8 +15,14 @@ const connect = (socketServer) => {
                 .exec((err, user) => {
                     console.log(user.name)
                     newMessage.sender = user._id;
-                    Branch.findOne({ name: action.sender.currentBranch })
-                        .exec( (err, branch) => {
+                    Conversation.findOne({ name: action.sender.currentConversation })
+                        .populate({
+                            path: 'branches',
+                            matches: { name: action.sender.currentBranch },
+                            options: { limit: 1 }
+                        })
+                        .exec((err, conversation) => {
+                            let branch = conversation.branches[0];
                             console.log(branch.name)
                             branch.messages.push(newMessage._id);
                             branch.markModified('messages');
@@ -32,11 +38,12 @@ const connect = (socketServer) => {
                             console.log(messageResponse);
                             connections.forEach( connectedSocket => {
                                 //if (connectedSocket !== socket) {
-                                    console.log('emitting message', action)
-                                    connectedSocket.emit('message', messageResponse);
+                                console.log('emitting message', action)
+                                connectedSocket.emit('message', messageResponse);
                                 //}
                             });
-                        } )
+                        })
+                    
                 })
         });
 
