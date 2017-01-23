@@ -6,7 +6,7 @@ export const route = (app) => {
         if (process.env.NODE_ENV === 'production') {
             res.sendFile(path.resolve(__dirname, '..', 'build', 'index.html'));
         } else {
-            res.sendFile(path.resolve(__dirname, '..', 'public', 'index.dev.html'));
+            res.sendFile(path.resolve(__dirname, '..', 'public-dev', 'index.dev.html'));
         }
     });
 
