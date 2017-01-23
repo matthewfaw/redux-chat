@@ -3,15 +3,18 @@ import ActionTypes from './actionTypes';
 export const requestLoadConversation = (conversationId) => ({
     type: ActionTypes.LOAD_CONVERSATION_REQUEST,
     id: conversationId,
+    defaultBranchName: "DEFAULT",
 });
 export const failLoadConversation = (conversationId, error) => ({
     type: ActionTypes.LOAD_CONVERSATION_FAIL,
     id: conversationId,
+    defaultBranchName: "DEFAULT",
     error: error
 });
 export const succeedLoadConversation = (conversationId) => ({
     type: ActionTypes.LOAD_CONVERSATION_SUCCESS,
     id: conversationId,
+    defaultBranchName: "DEFAULT",
 });
 
 export const changeMessageText = (newText) => ({

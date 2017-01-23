@@ -36,6 +36,11 @@ const updateById = (state, action, currentUserInfo) => {
                 ...state,
                 [action.branchName]: branch(undefined, action),
             }
+        case ActionTypes.LOAD_CONVERSATION_REQUEST:
+            return {
+                ...state,
+                [action.defaultBranchName]: branch(state[action.defaultBranchName], action)
+            }
         case ActionTypes.SEND_MESSAGE_SUCCESS:
             let currentBranch = currentUserInfo.currentBranch;
             return {

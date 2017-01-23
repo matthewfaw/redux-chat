@@ -33,10 +33,10 @@ export const loadAllConversations = (userName) => {
             } ))
     }
 }
-export const loadAllMessages = (userName, conversationId, branchId) => {
+export const loadAllMessages = (user, conversationId, branchId) => {
     return dispatch => {
-        dispatch(requestLoadConversation(conversationId));
-        return fetch(`/messages?name=${userName}&conversation=${conversationId}&branch=${branchId}`)
+        dispatch(requestLoadConversation(conversationId))
+        return fetch(`/messages?name=${user.name}&conversation=${conversationId}&branch=${branchId}`)
             .then(response => response.json())
             .then(res => res.messages.forEach( message => {
                 dispatch(succeedAddMessage(message));

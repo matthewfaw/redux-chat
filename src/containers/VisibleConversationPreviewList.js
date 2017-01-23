@@ -16,7 +16,7 @@ const mapDispatchToProps = (dispatch) => ({
     onComponentMounted: (currentUser) => dispatch(loadAllConversations(currentUser.name)),
     onConversationClicked: (currentUser, conversationId) => {
         const branchId = 'DEFAULT';
-        dispatch(loadAllMessages(currentUser.name, conversationId, branchId));
+        dispatch(loadAllMessages(currentUser, conversationId, branchId));
         dispatch(push(`/${conversationId}`));
     }
 });
