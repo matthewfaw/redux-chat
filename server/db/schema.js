@@ -1,27 +1,24 @@
 import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
-//
-mongoose.Promise = Promise;
-mongoose.connect(process.env.MONGO_URI);
 
-const userSchema = mongoose.Schema({
+export const userSchema = Schema({
     name: String,
     conversations: [{ type: Schema.Types.ObjectId, ref: 'Conversation' }],
     friends: [{ type: Schema.Types.ObjectId, ref: 'User' }],
 });
 
-const conversationSchema = mongoose.Schema({
+export const conversationSchema = Schema({
     name: String,
     participants: [{ type: Schema.Types.ObjectId, ref: 'User' }],
     branches: [{ type: Schema.Types.ObjectId, ref: 'Branch' }],
 });
 
-const branchSchema = mongoose.Schema({
+export const branchSchema = Schema({
     name: String,
     messages: [{ type: Schema.Types.ObjectId, ref: 'Message' }],
 });
 
-const messageSchema = mongoose.Schema({
+export const messageSchema = Schema({
     sender: { type: Schema.Types.ObjectId, ref: 'User' },
     branch: { type: Schema.Types.ObjectId, ref: 'Branch' },
     seenBy: [{ type: Schema.Types.ObjectId, ref: 'User' }],
@@ -29,7 +26,3 @@ const messageSchema = mongoose.Schema({
     body: String,
 });
 
-export const User = mongoose.model('User', userSchema);
-export const Conversation = mongoose.model('Conversation', conversationSchema);
-export const Branch = mongoose.model('Branch', branchSchema);
-export const Message = mongoose.model('Message', messageSchema);

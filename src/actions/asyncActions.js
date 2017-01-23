@@ -1,5 +1,6 @@
 import { requestSubmitTerminalInputText, succeedSubmitTerminalInputText, requestAddConversation, succeedAddConversation, requestAddMessage, succeedAddMessage, succeedLoadConversation, requestLoadConversation } from './actions';
 import fetch from 'isomorphic-fetch'
+import { Defaults } from '../utils/defaults';
 //import { SERVER_URL } from '../utils/defaults';
 
 export const fetchSongs = (artist) => {
@@ -56,6 +57,7 @@ export const requestCreateConversation = (name, creatorId) => {
             method: 'post',
             body: JSON.stringify({
                 name: name,
+                defaultBranchName: Defaults.defaultBranchName, 
                 creatorId:  creatorId,
             })
         })
